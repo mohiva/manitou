@@ -2,6 +2,12 @@ language: php
 
 php:
   - 5.3
+  - 5.4
+
+script: phpunit --configuration phpunit.travis.xml ./tests/com/mohiva/test/manitou
+
+before_install:
+  git submodule init && git submodule --quiet update
 
 notifications:
   email:
