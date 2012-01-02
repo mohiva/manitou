@@ -139,7 +139,7 @@ class PHPRawCodeTest extends AbstractGenerator {
 		$code->openScope('} else if (false) {', true);
 		$code->addLine();
 		$code->closeScope('} else {', true);
-		$code->addLine();		
+		$code->addLine();
 		$code->closeScope('}');
 		$code->closeScope('}');
 		$code->closeScope('}');
