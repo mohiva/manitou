@@ -1,0 +1,8 @@
+<?php
+/**
+ * 
+ */
+
+interface Test1 {}
+
+interface Test2 {}

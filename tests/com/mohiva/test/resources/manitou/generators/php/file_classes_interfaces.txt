@@ -1,0 +1,9 @@
+<?php
+
+class Test1 {}
+
+class Test2 {}
+
+interface Test1 {}
+
+interface Test2 {}

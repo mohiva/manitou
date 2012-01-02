@@ -1,0 +1,20 @@
+/**
+ * Unit test case for the Mohiva `PHPDocBlock` class.
+ * 
+ * LICENSE
+ * 
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://framework.mohiva.com/license
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@framework.mohiva.com so we can send you a copy immediately.
+ * 
+ * @category  Mohiva
+ * @package   Mohiva/Test
+ * @author    Christian Kaps <akkie@framework.mohiva.com>
+ * @copyright Copyright (c) 2007-2011 Christian Kaps (http://www.mohiva.com)
+ * @license   http://framework.mohiva.com/license New BSD License
+ * @link      http://framework.mohiva.com
+ */

@@ -1,0 +1,21 @@
+<?php
+
+class Test extends AbstractTest {
+	
+	private $rows = 10;
+	
+	public function __construct() {
+		
+		for ($i = 0; $i < $this->rows; $i++) {
+			echo $i;
+		}
+		
+		if (true) {
+			
+		} else if (false) {
+			
+		} else {
+			
+		}
+	}
+}

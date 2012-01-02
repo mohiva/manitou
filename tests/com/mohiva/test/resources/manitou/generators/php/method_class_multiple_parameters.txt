@@ -1,0 +1,1 @@
+public function test($name, string $value = 'test', int $index = 1) {}

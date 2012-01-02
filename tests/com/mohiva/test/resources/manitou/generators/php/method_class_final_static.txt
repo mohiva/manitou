@@ -1,0 +1,1 @@
+final public static function test() {}

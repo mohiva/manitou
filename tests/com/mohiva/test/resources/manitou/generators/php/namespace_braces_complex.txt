@@ -1,0 +1,26 @@
+namespace com\mohiva\test {
+	
+	use com\mohiva\framework\xml\XMLDocument;
+	use com\mohiva\framework\xml\XMLElement;
+	use com\mohiva\framework\mfx as mymfx;
+	
+	/**
+	 * 
+	 */
+	class Test1 {}
+	
+	/**
+	 * 
+	 */
+	class Test2 {}
+	
+	/**
+	 * 
+	 */
+	interface Test1 {}
+	
+	/**
+	 * 
+	 */
+	interface Test2 {}
+}

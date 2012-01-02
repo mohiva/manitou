@@ -1,0 +1,8 @@
+class Test {
+	
+	public $public = null;
+	
+	protected $protected = null;
+	
+	private $private = null;
+}

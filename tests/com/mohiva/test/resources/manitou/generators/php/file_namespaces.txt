@@ -1,0 +1,5 @@
+<?php
+
+namespace com\mohiva\framework;
+
+namespace com\mohiva\test;

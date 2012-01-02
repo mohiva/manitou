@@ -1,0 +1,4 @@
+/**
+ * 
+ */
+const TEST_CONST = '4.3';

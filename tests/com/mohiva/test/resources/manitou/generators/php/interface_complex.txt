@@ -1,0 +1,20 @@
+/**
+ * A complex interface example.
+ */
+interface Test extends Serializable, Countable {
+	
+	/**
+	 * 
+	 */
+	const TYPE_HTTP = 1;
+	
+	/**
+	 * 
+	 */
+	const TYPE_CLI = 2;
+	
+	/**
+	 * The class constructor.
+	 */
+	public function __construct($type);
+}

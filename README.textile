@@ -1,0 +1,7 @@
+h2. About
+
+The Mohiva Manitou project is code generator written in PHP. In it's early state it can only generate PHP code. In 
+feature versions it should be able to generate code for other languages too. Therefore it is planed to feature code 
+templates for code formatting.
+
+This project is Open Source and released under the terms of the New BSD License.

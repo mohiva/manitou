@@ -1,0 +1,8 @@
+class Test {
+	
+	public function __construct() {}
+	
+	protected function calculate() {}
+	
+	private function draw() {}
+}
