@@ -1,0 +1,15 @@
+{
+    "name": "mohiva/manitou",
+    "type": "library",
+    "description": "A code generator written in PHP",
+    "keywords": ["code", "generator"],
+    "homepage": "https://github.com/mohiva/manitou",
+    "license": "New BSD",
+    "authors": [
+        {"name": "Christian Kaps", "email": "christian.kaps@mohiva.com"}
+    ],
+    "require": {
+        "php": ">=5.4",
+        "mohiva/common": "master"
+    }
+}
