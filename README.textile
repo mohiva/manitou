@@ -1,7 +1,31 @@
+h1. Mohiva Manitou "!http://travis-ci.org/mohiva/manitou.png!":http://travis-ci.org/mohiva/manitou
+
 h2. About
 
 The Mohiva Manitou project is code generator written in PHP. In it's early state it can only generate PHP code. In 
 feature versions it should be able to generate code for other languages too. Therefore it is planed to feature code 
 templates for code formatting.
+
+h2. Installation
+
+As first you must clone the repository.
+
+<pre lang="sh">
+git clone git://github.com/mohiva/manitou.git
+</pre>
+
+Then you must fetch the dependencies.
+
+<pre lang="sh">
+cd manitou
+git submodule init
+git submodule update
+</pre>
+
+h2. Requirements
+
+Mohiva Manitou needs PHP 5.4 to work.
+
+h2. License
 
 This project is Open Source and released under the terms of the New BSD License.
