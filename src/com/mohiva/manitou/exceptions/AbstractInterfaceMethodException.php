@@ -18,6 +18,8 @@
  */
 namespace com\mohiva\manitou\exceptions;
 
+use com\mohiva\common\exceptions\SyntaxErrorException;
+
 /**
  * Exception class that signals that a interface method cannot be abstract.
  * 

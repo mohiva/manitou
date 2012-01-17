@@ -18,6 +18,8 @@
  */
 namespace com\mohiva\manitou\exceptions;
 
+use com\mohiva\common\exceptions\SyntaxErrorException;
+
 /**
  * Exception class that indicates a syntax error through the wrong combination 
  * of multiple namespaces.
