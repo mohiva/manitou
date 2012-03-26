@@ -24,7 +24,7 @@ use com\mohiva\manitou\generators\php\PHPUse;
 
 /**
  * Unit test case for the `PHPUse` class.
- * 
+ *
  * @category  Mohiva/Manitou
  * @package   Mohiva/Manitou/Test
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -33,55 +33,55 @@ use com\mohiva\manitou\generators\php\PHPUse;
  * @link      https://github.com/mohiva/manitou
  */
 class PHPUseTest extends AbstractGenerator {
-	
+
 	/**
 	 * Test if can set or get the fully qualified class or namespace name.
 	 */
 	public function testFQNAccessors() {
-		
+
 		$use = new PHPUse('\com\mohiva\test1');
-		
+
 		$this->assertSame('com\mohiva\test1', $use->getFQN());
-		
+
 		$use->setFQN('\com\mohiva\test2');
-		
+
 		$this->assertSame('com\mohiva\test2', $use->getFQN());
 	}
-	
+
 	/**
 	 * Test if can set or get the alias for a fully qualified class or namespace name.
 	 */
 	public function testAliasAccessors() {
-		
+
 		$use = new PHPUse('\com\mohiva\test');
 		$use->setAlias('MyAlias');
-		
+
 		$this->assertSame('MyAlias', $use->getAlias());
 	}
-	
+
 	/**
 	 * Test if can generate a use statement without an alias.
 	 */
 	public function testGenerateUseWithoutAlias() {
-		
+
 		$file = Bootstrap::$resourceDir . '/manitou/generators/php/use.txt';
 		$expected = $this->getFileContent($file);
-		
+
 		$use = new PHPUse('\com\mohiva\test');
-		
+
 		$this->assertEquals($expected, $use->generate());
 	}
-	
+
 	/**
 	 * Test if can generate a use statement without an alias.
 	 */
 	public function testGenerateUseWithAlias() {
-		
+
 		$file = Bootstrap::$resourceDir . '/manitou/generators/php/use_alias.txt';
 		$expected = $this->getFileContent($file);
-		
+
 		$use = new PHPUse('\com\mohiva\test', 'MyAlias');
-		
+
 		$this->assertEquals($expected, $use->generate());
 	}
 }

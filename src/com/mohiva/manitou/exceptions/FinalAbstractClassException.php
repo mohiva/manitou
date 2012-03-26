@@ -22,7 +22,7 @@ use com\mohiva\common\exceptions\SyntaxErrorException;
 
 /**
  * Exception class that signals that abstract keyword cannot be used in abstract class declaration.
- * 
+ *
  * @category  Mohiva/Manitou
  * @package   Mohiva/Manitou/Exceptions
  * @author    Christian Kaps <christian.kaps@mohiva.com>

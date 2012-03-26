@@ -25,7 +25,7 @@ use com\mohiva\manitou\generators\php\PHPRawCode;
 
 /**
  * Unit test case for the `PHPRawCode` class.
- * 
+ *
  * @category  Mohiva/Manitou
  * @package   Mohiva/Manitou/Test
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -34,93 +34,95 @@ use com\mohiva\manitou\generators\php\PHPRawCode;
  * @link      https://github.com/mohiva/manitou
  */
 class PHPRawCodeTest extends AbstractGenerator {
-	
+
 	/**
 	 * Test if can set or get code.
 	 */
 	public function testCodeAccessors() {
-		
+
 		$code = new PHPRawCode;
 		$code->setCode("echo 'test';");
-		
+
 		$this->assertSame("echo 'test';", $code->getCode());
 	}
-	
+
 	/**
 	 * Test if can add a code fragment to non existing code.
 	 */
 	public function testAddCodeToNonExistingCode() {
-		
+
 		$expected = 'exit();';
-		
+
 		$code = new PHPRawCode;
 		$code->addCode('exit();');
-		
+
 		$this->assertSame($expected, $code->getCode());
 	}
-	
+
 	/**
 	 * Test if can add a code fragment to existing code.
 	 */
 	public function testAddCodeToExistingCode() {
-		
-		$expected  = "echo 'test';" . Generator::LINE_FEED;
+
+		$lineFeed = Generator::getConfig()->getNewline();
+		$expected  = "echo 'test';" . $lineFeed;
 		$expected .= 'exit();';
-		
+
 		$code = new PHPRawCode;
 		$code->setCode("echo 'test';");
-		$code->addCode(Generator::LINE_FEED . 'exit();');
-		
+		$code->addCode($lineFeed . 'exit();');
+
 		$this->assertSame($expected, $code->getCode());
 	}
-	
+
 	/**
 	 * Test if can set or get the indention level.
 	 */
 	public function testIndentLevelAccessors() {
-		
+
 		$code = new PHPRawCode;
 		$code->setIndentLevel(2);
-		
+
 		$this->assertSame(2, $code->getIndentLevel());
 	}
-	
+
 	/**
 	 * Test if can add a new line to non existing code.
 	 */
 	public function testAddLineToNonExistingCode() {
-		
+
 		$expected = 'exit();';
-		
+
 		$code = new PHPRawCode;
 		$code->addLine('exit();');
-		
+
 		$this->assertSame($expected, $code->getCode());
 	}
-	
+
 	/**
 	 * Test if can add a new line to existing code.
 	 */
 	public function testAddLineToExistingCode() {
-		
-		$expected  = "echo 'test';" . Generator::LINE_FEED;
+
+		$lineFeed = Generator::getConfig()->getNewline();
+		$expected  = "echo 'test';" . $lineFeed;
 		$expected .= 'exit();';
-		
+
 		$code = new PHPRawCode;
 		$code->setCode("echo 'test';");
 		$code->addLine('exit();');
-		
+
 		$this->assertSame($expected, $code->getCode());
 	}
-	
+
 	/**
 	 * Test if can generate raw code.
 	 */
 	public function testGenerateRawCode() {
-		
+
 		$file = Bootstrap::$resourceDir . '/manitou/generators/php/rawcode.txt';
 		$expected = $this->getFileContent($file);
-		
+
 		$code = new PHPRawCode;
 		$code->setCode('<?php');
 		$code->addLine();
@@ -143,7 +145,8 @@ class PHPRawCodeTest extends AbstractGenerator {
 		$code->closeScope('}');
 		$code->closeScope('}');
 		$code->closeScope('}');
-		
+		$code->addLine();
+
 		$this->assertEquals($expected, $code->generate());
 	}
 }

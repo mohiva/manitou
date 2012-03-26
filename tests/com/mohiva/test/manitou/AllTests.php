@@ -20,7 +20,7 @@ namespace com\mohiva\test\manitou;
 
 /**
  * Test suite for the Mohiva Manitou project.
- * 
+ *
  * @category  Mohiva/Manitou
  * @package   Mohiva/Manitou/Test
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -29,24 +29,25 @@ namespace com\mohiva\test\manitou;
  * @link      https://github.com/mohiva/manitou
  */
 class AllTests extends \PHPUnit_Framework_TestSuite {
-	
+
 	/**
 	 * Constructs the test suite handler.
 	 */
 	public function __construct() {
-		
+
 		$this->setName(__CLASS__);
 		$this->addTest(generators\AllTests::suite());
+		$this->addTestSuite(__NAMESPACE__ . '\ConfigTest');
 		$this->addTestSuite(__NAMESPACE__ . '\GeneratorTest');
 	}
-	
+
 	/**
 	 * Creates the suite.
-	 * 
+	 *
 	 * @return AllTests The test suite.
 	 */
 	public static function suite() {
-		
+
 		return new self();
 	}
 }

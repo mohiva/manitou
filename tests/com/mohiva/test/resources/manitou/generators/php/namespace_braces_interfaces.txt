@@ -1,6 +1,6 @@
 namespace com\mohiva\test {
-	
+
 	interface Test1 {}
-	
+
 	interface Test2 {}
 }

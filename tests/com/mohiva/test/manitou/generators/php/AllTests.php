@@ -20,7 +20,7 @@ namespace com\mohiva\test\manitou\generators\php;
 
 /**
  * Test suite for the Mohiva Manitou project.
- * 
+ *
  * @category  Mohiva
  * @package   Mohiva/Test
  * @author    Christian Kaps <akkie@framework.mohiva.com>
@@ -29,12 +29,12 @@ namespace com\mohiva\test\manitou\generators\php;
  * @link      http://framework.mohiva.com
  */
 class AllTests extends \PHPUnit_Framework_TestSuite {
-	
+
 	/**
 	 * Constructs the test suite handler.
 	 */
 	public function __construct() {
-		
+
 		$this->setName(__CLASS__);
 		$this->addTestSuite(__NAMESPACE__ . '\PHPFileTest');
 		$this->addTestSuite(__NAMESPACE__ . '\PHPNamespaceTest');
@@ -49,14 +49,14 @@ class AllTests extends \PHPUnit_Framework_TestSuite {
 		$this->addTestSuite(__NAMESPACE__ . '\PHPDocBlockTest');
 		$this->addTestSuite(__NAMESPACE__ . '\PHPRawCodeTest');
 	}
-	
+
 	/**
 	 * Creates the suite.
-	 * 
+	 *
 	 * @return AllTests The test suite.
 	 */
 	public static function suite() {
-		
+
 		return new self();
 	}
 }

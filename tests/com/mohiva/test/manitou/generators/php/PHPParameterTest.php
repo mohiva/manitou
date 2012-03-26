@@ -25,7 +25,7 @@ use com\mohiva\manitou\generators\php\PHPValue;
 
 /**
  * Unit test case for the `PHPParameter` class.
- * 
+ *
  * @category  Mohiva/Manitou
  * @package   Mohiva/Manitou/Test
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -34,18 +34,18 @@ use com\mohiva\manitou\generators\php\PHPValue;
  * @link      https://github.com/mohiva/manitou
  */
 class PHPParameterTest extends AbstractGenerator {
-	
+
 	/**
 	 * Test if can set or get the name of a parameter.
 	 */
 	public function testNameAccessors() {
-		
+
 		$parameter = new PHPParameter('name');
-		
+
 		$this->assertSame('name', $parameter->getName());
-		
+
 		$parameter->setName('value');
-		
+
 		$this->assertSame('value', $parameter->getName());
 	}
 
@@ -53,82 +53,82 @@ class PHPParameterTest extends AbstractGenerator {
 	 * Test if can set or get the type of a parameter.
 	 */
 	public function testTypeAccessors() {
-		
+
 		$parameter = new PHPParameter('name', 'int');
-		
+
 		$this->assertSame('int', $parameter->getType());
-		
+
 		$parameter->setType('PHPValue');
-		
+
 		$this->assertSame('PHPValue', $parameter->getType());
 	}
-	
+
 	/**
 	 * Test if can set or get the value of a parameter.
 	 */
 	public function testValueAccessors() {
-		
+
 		$value1 = new PHPValue(1);
 		$value2 = new PHPValue(2);
-		
+
 		$parameter = new PHPParameter('index', 'int', $value1);
-		
+
 		$this->assertSame($value1, $parameter->getValue());
-		
+
 		$parameter->setValue($value2);
-		
+
 		$this->assertSame($value2, $parameter->getValue());
 	}
-	
+
 	/**
 	 * Test if can generate a parameter.
 	 */
 	public function testGenerateParameter() {
-		
+
 		$file = Bootstrap::$resourceDir . '/manitou/generators/php/parameter.txt';
 		$expected = $this->getFileContent($file);
-		
+
 		$parameter = new PHPParameter('index');
-		
+
 		$this->assertEquals($expected, $parameter->generate());
 	}
-	
+
 	/**
 	 * Test if can generate a parameter with a type.
 	 */
 	public function testGenerateParameterWithType() {
-		
+
 		$file = Bootstrap::$resourceDir . '/manitou/generators/php/parameter_type.txt';
 		$expected = $this->getFileContent($file);
-		
+
 		$parameter = new PHPParameter('index', 'int');
-		
+
 		$this->assertEquals($expected, $parameter->generate());
 	}
-	
+
 	/**
 	 * Test if can generate a parameter with a value.
 	 */
 	public function testGenerateParameterWithValue() {
-		
+
 		$file = Bootstrap::$resourceDir . '/manitou/generators/php/parameter_value.txt';
 		$expected = $this->getFileContent($file);
-		
+
 		$parameter = new PHPParameter('index', null, new PHPValue(1));
-		
+
 		$this->assertEquals($expected, $parameter->generate());
 	}
-	
+
 	/**
 	 * Test if can generate a parameter with a type and a value.
 	 */
 	public function testGenerateParameterWithTypeAndValue() {
-		
+
 		$file = Bootstrap::$resourceDir . '/manitou/generators/php/parameter_type_value.txt';
 		$expected = $this->getFileContent($file);
-		
+
 		$parameter = new PHPParameter('index', 'int', new PHPValue(1));
-		
+
 		$this->assertEquals($expected, $parameter->generate());
 	}
 }
