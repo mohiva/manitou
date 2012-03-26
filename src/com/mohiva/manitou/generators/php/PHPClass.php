@@ -97,20 +97,6 @@ class PHPClass extends Generator {
 	protected $docBlock = null;
 
 	/**
-	 * Create an instance of this class and return it. This method
-	 * exists to provide a fluent interface.
-	 *
-	 * @param string $name The name of the interface.
-	 * @return PHPClass An instance of this class.
-	 */
-	public static function create($name) {
-
-		$instance = new self($name);
-
-		return $instance;
-	}
-
-	/**
 	 * The class constructor.
 	 *
 	 * @param string $name The name of the class.

@@ -47,19 +47,6 @@ class PHPRawCode extends Generator {
 	protected $indentLevel = 0;
 
 	/**
-	 * Create an instance of this class and return it. This method
-	 * exists to provide a fluent interface.
-	 *
-	 * @return PHPRawCode An instance of this class.
-	 */
-	public static function create() {
-
-		$instance = new self();
-
-		return $instance;
-	}
-
-	/**
 	 * Sets the raw PHP code.
 	 *
 	 * @param string $code The raw PHP code.
@@ -169,54 +156,6 @@ class PHPRawCode extends Generator {
 		if ($openAfter) $this->indentLevel++;
 
 		return $this;
-	}
-
-	/**
-	 * Create from a code block separate concatenated lines.
-	 *
-	 * @param string $varName The variable name to use for string concatenating.
-	 * @param string $block The block to split in lines. All ' chars must be escaped.
-	 */
-	public function createLines($varName, $block) {
-
-		$lineFeed = self::getConfig()->getNewline();
-		if ($lineFeed == '\r\n') {
-			$lineEnding = ' . "\r\n"';
-		} else if ($lineFeed == '\r') {
-			$lineEnding = ' . "\r"';
-		} else {
-			$lineEnding = ' . "\n"';
-		}
-
-		// Build the content lines
-		$lines = array();
-		$data = preg_split('/[\r\n|\r|\n]/', $block);
-		foreach ($data as $line) {
-			$line = rtrim($line);
-			if (empty($line)) {
-				continue;
-			}
-
-			$lines[] = $line;
-		}
-
-		if (empty($lines)) {
-			$this->addLine("\${$varName} = '';");
-		} else {
-			$cnt = count($lines);
-			for ($i = 0; $i < $cnt; $i++) {
-				$line = $lines[$i];
-				if ($i + 1 == $cnt && $i == 0) {
-					$this->addLine("\${$varName} = '{$line}';");
-				} else if ($i == 0) {
-					$this->addLine("\${$varName}  = '{$line}'" . $lineEnding . ';');
-				} else if ($i < $cnt - 1) {
-					$this->addLine("\${$varName} .= '{$line}'" . $lineEnding . ';');
-				} else {
-					$this->addLine("\${$varName} .= '{$line}';");
-				}
-			}
-		}
 	}
 
 	/**

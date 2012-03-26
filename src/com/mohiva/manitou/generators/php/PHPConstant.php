@@ -57,21 +57,6 @@ class PHPConstant extends Generator {
 	protected $docBlock = null;
 
 	/**
-	 * Create an instance of this class and return it. This method
-	 * exists to provide a fluent interface.
-	 *
-	 * @param string $name The name of the constant.
-	 * @param PHPValue $value The value of the constant.
-	 * @return PHPConstant An instance of this class.
-	 */
-	public static function create($name, PHPValue $value) {
-
-		$instance = new self($name, $value);
-
-		return $instance;
-	}
-
-	/**
 	 * The class constructor.
 	 *
 	 * @param string $name The name of the constant.

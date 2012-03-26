@@ -121,7 +121,7 @@ class PHPClassTest extends AbstractGenerator {
 	/**
 	 * Test if can set or get the abstract property of the class.
 	 */
-	public function testIsAbstractAccessors() {
+	public function testAbstractAccessors() {
 
 		$class = new PHPClass('Test', null, array(), true);
 
@@ -135,7 +135,7 @@ class PHPClassTest extends AbstractGenerator {
 	/**
 	 * Test if can set or get the final property of the class.
 	 */
-	public function testIsFinalAccessors() {
+	public function testFinalAccessors() {
 
 		$class = new PHPClass('Test', null, array(), true, true);
 
@@ -296,22 +296,22 @@ class PHPClassTest extends AbstractGenerator {
 		$file = Bootstrap::$resourceDir . '/manitou/generators/php/class_complex.txt';
 		$expected = $this->getFileContent($file);
 
-		$this->assertEquals($expected, PHPClass::create('Test')
+		$this->assertEquals($expected, (new PHPClass('Test'))
 			->setParentClass('AbstractTest')
 			->setImplInterfaces(array('Serializable', 'Countable'))
 			->setFinal(true)
-			->setDocBlock(PHPDocBlock::create()->addSection('A complex class example.'))
-			->addConstant(PHPConstant::create('TYPE_HTTP', new PHPValue(1))->setDocBlock(new PHPDocBlock()))
-			->addConstant(PHPConstant::create('TYPE_CLI', new PHPValue(2))->setDocBlock(new PHPDocBlock()))
-			->addProperty(PHPProperty::create('type')
-				->setValue(PHPValue::create('self::TYPE_CLI')
+			->setDocBlock((new PHPDocBlock())->addSection('A complex class example.'))
+			->addConstant((new PHPConstant('TYPE_HTTP', new PHPValue(1)))->setDocBlock(new PHPDocBlock()))
+			->addConstant((new PHPConstant('TYPE_CLI', new PHPValue(2)))->setDocBlock(new PHPDocBlock()))
+			->addProperty((new PHPProperty('type'))
+				->setValue((new PHPValue('self::TYPE_CLI'))
 					->setType(PHPValue::TYPE_CONSTANT))
 				->setVisibility(PHPProperty::VISIBILITY_PROTECTED)
 				->setDocBlock(new PHPDocBlock()))
-			->addMethod(PHPMethod::create('__construct')
+			->addMethod((new PHPMethod('__construct'))
 				->addParameter(new PHPParameter('type'))
-				->setBody(PHPRawCode::create()->addLine('$this->type = $type;'))
-				->setDocBlock(PHPDocBlock::create()->addSection('The class constructor.')))
+				->setBody((new PHPRawCode())->addLine('$this->type = $type;'))
+				->setDocBlock((new PHPDocBlock())->addSection('The class constructor.')))
 			->generate()
 		);
 	}

@@ -180,15 +180,15 @@ class PHPInterfaceTest extends AbstractGenerator {
 		$file = Bootstrap::$resourceDir . '/manitou/generators/php/interface_complex.txt';
 		$expected = $this->getFileContent($file);
 
-		$this->assertEquals($expected, PHPInterface::create('Test')
+		$this->assertEquals($expected, (new PHPInterface('Test'))
 			->setParentInterfaces(array('Serializable', 'Countable'))
-			->setDocBlock(PHPDocBlock::create()->addSection('A complex interface example.'))
-			->addConstant(PHPConstant::create('TYPE_HTTP', new PHPValue(1))->setDocBlock(new PHPDocBlock()))
-			->addConstant(PHPConstant::create('TYPE_CLI', new PHPValue(2))->setDocBlock(new PHPDocBlock()))
-			->addMethod(PHPMethod::create('__construct')
+			->setDocBlock((new PHPDocBlock())->addSection('A complex interface example.'))
+			->addConstant((new PHPConstant('TYPE_HTTP', new PHPValue(1)))->setDocBlock(new PHPDocBlock()))
+			->addConstant((new PHPConstant('TYPE_CLI', new PHPValue(2)))->setDocBlock(new PHPDocBlock()))
+			->addMethod((new PHPMethod('__construct'))
 				->setScope(PHPMethod::SCOPE_INTERFACE)
 				->addParameter(new PHPParameter('type'))
-				->setDocBlock(PHPDocBlock::create()->addSection('The class constructor.')))
+				->setDocBlock((new PHPDocBlock())->addSection('The class constructor.')))
 			->generate()
 		);
 	}

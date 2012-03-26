@@ -54,19 +54,6 @@ class PHPDocBlock extends Generator {
 	protected $annotations = array();
 
 	/**
-	 * Create an instance of this class and return it. This method
-	 * exists to provide a fluent interface.
-	 *
-	 * @return PHPDocBlock An instance of this class.
-	 */
-	public static function create() {
-
-		$instance = new self();
-
-		return $instance;
-	}
-
-	/**
 	 * Sets a list with sections.
 	 *
 	 * @param array $sections A list with sections.

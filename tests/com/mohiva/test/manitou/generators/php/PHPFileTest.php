@@ -329,7 +329,7 @@ class PHPFileTest extends AbstractGenerator {
 
 		$file = new PHPFile();
 		$file->setDocBlock(new PHPDocBlock());
-		$file->addClass(PHPClass::create('Test1')->setDocBlock(new PHPDocBlock()));
+		$file->addClass((new PHPClass('Test1'))->setDocBlock(new PHPDocBlock()));
 
 		$this->assertEquals($expected, $file->generate());
 	}
@@ -344,8 +344,8 @@ class PHPFileTest extends AbstractGenerator {
 
 		$file = new PHPFile();
 		$file->setDocBlock(new PHPDocBlock());
-		$file->addNamespace(PHPNamespace::create('com\mohiva\framework')
-			->addClass(PHPClass::create('Test1')
+		$file->addNamespace((new PHPNamespace('com\mohiva\framework'))
+			->addClass((new PHPClass('Test1'))
 				->setDocBlock(new PHPDocBlock())));
 
 		$this->assertEquals($expected, $file->generate());
@@ -360,8 +360,8 @@ class PHPFileTest extends AbstractGenerator {
 	public function testIfThrowsExceptionOnWrongNamespaceCombination() {
 
 		$file = new PHPFile();
-		$file->addNamespace(PHPNamespace::create()->setBracketed(true));
-		$file->addNamespace(PHPNamespace::create('com\mohiva\test')->setBracketed(false));
+		$file->addNamespace((new PHPNamespace())->setBracketed(true));
+		$file->addNamespace((new PHPNamespace('com\mohiva\test'))->setBracketed(false));
 		$file->generate();
 	}
 
@@ -373,8 +373,8 @@ class PHPFileTest extends AbstractGenerator {
 	public function testIfThrowsExceptionOnWrongNamespaceAndClassUsage() {
 
 		$file = new PHPFile();
-		$file->addNamespace(PHPNamespace::create('com\mohiva\test'));
-		$file->addClass(PHPClass::create('test'));
+		$file->addNamespace(new PHPNamespace('com\mohiva\test'));
+		$file->addClass(new PHPClass('test'));
 		$file->generate();
 	}
 
@@ -386,8 +386,8 @@ class PHPFileTest extends AbstractGenerator {
 	public function testIfThrowsExceptionOnWrongNamespaceAndInterfaceUsage() {
 
 		$file = new PHPFile();
-		$file->addNamespace(PHPNamespace::create('com\mohiva\test'));
-		$file->addInterface(PHPInterface::create('test'));
+		$file->addNamespace(new PHPNamespace('com\mohiva\test'));
+		$file->addInterface(new PHPInterface('test'));
 		$file->generate();
 	}
 }

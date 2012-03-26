@@ -47,20 +47,6 @@ class PHPUse extends Generator {
 	protected $alias = null;
 
 	/**
-	 * Create an instance of this class and return it. This method
-	 * exists to provide a fluent interface.
-	 *
-	 * @param string $fqn A fully qualified class or namespace name.
-	 * @return PHPUse An instance of this class.
-	 */
-	public static function create($fqn) {
-
-		$instance = new self($fqn);
-
-		return $instance;
-	}
-
-	/**
 	 * The class constructor.
 	 *
 	 * @param string $fqn A fully qualified class or namespace name.

@@ -84,7 +84,7 @@ class PHPPropertyTest extends AbstractGenerator {
 	/**
 	 * Test if can set or get the static property of a property.
 	 */
-	public function testIsStaticAccessors() {
+	public function testStaticAccessors() {
 
 		$property = new PHPProperty('index', new PHPValue(1), PHPProperty::VISIBILITY_PRIVATE, true);
 

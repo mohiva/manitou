@@ -72,20 +72,6 @@ class PHPNamespace extends Generator {
 	protected $interfaces = array();
 
 	/**
-	 * Create an instance of this class and return it. This method
-	 * exists to provide a fluent interface.
-	 *
-	 * @param string $name The namespace name or null for the global namespace.
-	 * @return PHPNamespace An instance of this class.
-	 */
-	public static function create($name = null) {
-
-		$instance = new self($name);
-
-		return $instance;
-	}
-
-	/**
 	 * The class constructor.
 	 *
 	 * @param string $name The namespace name or null for the global namespace.

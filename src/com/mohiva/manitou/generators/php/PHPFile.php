@@ -66,19 +66,6 @@ class PHPFile extends Generator {
 	protected $interfaces = array();
 
 	/**
-	 * Create an instance of this class and return it. This method
-	 * exists to provide a fluent interface.
-	 *
-	 * @return PHPFile An instance of this class.
-	 */
-	public static function create() {
-
-		$class = new self();
-
-		return $class;
-	}
-
-	/**
 	 * Sets the DocBlock object for this file.
 	 *
 	 * @param PHPDocBlock $docBlock The DocBlock object for this file.

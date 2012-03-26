@@ -81,20 +81,6 @@ class PHPValue extends Generator {
 	protected $arrayOutput = self::OUTPUT_MULTI_LINE;
 
 	/**
-	 * Create an instance of this class and return it. This method
-	 * exists to provide a fluent interface.
-	 *
-	 * @param mixed $value The value.
-	 * @return PHPValue An instance of this class.
-	 */
-	public static function create($value) {
-
-		$instance = new self($value);
-
-		return $instance;
-	}
-
-	/**
 	 * The class constructor.
 	 *
 	 * @param mixed $value The value.

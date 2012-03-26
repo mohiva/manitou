@@ -376,10 +376,10 @@ class PHPNamespaceTest extends AbstractGenerator {
 		$namespace->addUseStatement(new PHPUse('com\mohiva\framework\xml\XMLDocument'));
 		$namespace->addUseStatement(new PHPUse('com\mohiva\framework\xml\XMLElement'));
 		$namespace->addUseStatement(new PHPUse('com\mohiva\framework\mfx', 'mymfx'));
-		$namespace->addClass(PHPClass::create('Test1')->setDocBlock(new PHPDocBlock()));
-		$namespace->addClass(PHPClass::create('Test2')->setDocBlock(new PHPDocBlock()));
-		$namespace->addInterface(PHPInterface::create('Test1')->setDocBlock(new PHPDocBlock()));
-		$namespace->addInterface(PHPInterface::create('Test2')->setDocBlock(new PHPDocBlock()));
+		$namespace->addClass((new PHPClass('Test1'))->setDocBlock(new PHPDocBlock()));
+		$namespace->addClass((new PHPClass('Test2'))->setDocBlock(new PHPDocBlock()));
+		$namespace->addInterface((new PHPInterface('Test1'))->setDocBlock(new PHPDocBlock()));
+		$namespace->addInterface((new PHPInterface('Test2'))->setDocBlock(new PHPDocBlock()));
 
 		$this->assertEquals($expected, $namespace->generate());
 	}
@@ -397,10 +397,10 @@ class PHPNamespaceTest extends AbstractGenerator {
 		$namespace->addUseStatement(new PHPUse('com\mohiva\framework\xml\XMLDocument'));
 		$namespace->addUseStatement(new PHPUse('com\mohiva\framework\xml\XMLElement'));
 		$namespace->addUseStatement(new PHPUse('com\mohiva\framework\mfx', 'mymfx'));
-		$namespace->addClass(PHPClass::create('Test1')->setDocBlock(new PHPDocBlock()));
-		$namespace->addClass(PHPClass::create('Test2')->setDocBlock(new PHPDocBlock()));
-		$namespace->addInterface(PHPInterface::create('Test1')->setDocBlock(new PHPDocBlock()));
-		$namespace->addInterface(PHPInterface::create('Test2')->setDocBlock(new PHPDocBlock()));
+		$namespace->addClass((new PHPClass('Test1'))->setDocBlock(new PHPDocBlock()));
+		$namespace->addClass((new PHPClass('Test2'))->setDocBlock(new PHPDocBlock()));
+		$namespace->addInterface((new PHPInterface('Test1'))->setDocBlock(new PHPDocBlock()));
+		$namespace->addInterface((new PHPInterface('Test2'))->setDocBlock(new PHPDocBlock()));
 
 		$this->assertEquals($expected, $namespace->generate());
 	}

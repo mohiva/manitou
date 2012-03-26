@@ -84,7 +84,7 @@ class PHPMethodTest extends AbstractGenerator {
 	/**
 	 * Test if can set or get the abstract property of the method.
 	 */
-	public function testIsAbstractAccessors() {
+	public function testAbstractAccessors() {
 
 		$method = new PHPMethod(
 			'__construct',
@@ -103,7 +103,7 @@ class PHPMethodTest extends AbstractGenerator {
 	/**
 	 * Test if can set or get the final property of a method.
 	 */
-	public function testIsFinalAccessors() {
+	public function testFinalAccessors() {
 
 		$method = new PHPMethod(
 			'__construct',
@@ -123,7 +123,7 @@ class PHPMethodTest extends AbstractGenerator {
 	/**
 	 * Test if can set or get the static property of a method.
 	 */
-	public function testIsStaticAccessors() {
+	public function testStaticAccessors() {
 
 		$method = new PHPMethod(
 			'__construct',
