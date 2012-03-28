@@ -39,18 +39,35 @@ use com\mohiva\manitou\generators\php\PHPClass;
 class PHPNamespaceTest extends AbstractGenerator {
 
 	/**
-	 * Test if can set or get the namespace name.
+	 * Test all getters for the values set with the constructor.
 	 */
-	public function testNameAccessors() {
+	public function testConstructorAccessors() {
 
-		$namespace = new PHPNamespace();
-		$namespace->setName('\com\mohiva\test');
+		$name = sha1(microtime(true));
+		$isBracketed = (bool) mt_rand(0, 1);
+		$namespace = new PHPNamespace(
+			$name,
+			$isBracketed
+		);
 
-		$this->assertSame('com\mohiva\test', $namespace->getName());
+		$this->assertSame($name, $namespace->getName());
+		$this->assertSame($isBracketed, $namespace->isBracketed());
 	}
 
 	/**
-	 * Test if can set or get the bracketed property.
+	 * Test the `setName` and `getName` accessors.
+	 */
+	public function testNameAccessors() {
+
+		$name = sha1(microtime(true));
+		$namespace = new PHPNamespace();
+		$namespace->setName($name);
+
+		$this->assertSame($name, $namespace->getName());
+	}
+
+	/**
+	 * Test the `setBracketed` and `isBracketed` accessors.
 	 */
 	public function testBracketedAccessors() {
 
@@ -61,7 +78,7 @@ class PHPNamespaceTest extends AbstractGenerator {
 	}
 
 	/**
-	 * Test if can set or get use statements.
+	 * Test the `setUseStatements` and `getUseStatements` accessors.
 	 */
 	public function testUseStatementAccessors() {
 
@@ -115,7 +132,7 @@ class PHPNamespaceTest extends AbstractGenerator {
 	}
 
 	/**
-	 * Test if can set or get classes.
+	 * Test the `setClasses` and `getClasses` accessors.
 	 */
 	public function testClassAccessors() {
 
@@ -169,7 +186,7 @@ class PHPNamespaceTest extends AbstractGenerator {
 	}
 
 	/**
-	 * Test if can set or get interfaces.
+	 * Test the `setInterfaces` and `getInterfaces` accessors.
 	 */
 	public function testInterfaceAccessors() {
 

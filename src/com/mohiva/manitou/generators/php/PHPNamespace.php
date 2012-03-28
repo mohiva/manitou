@@ -10,7 +10,7 @@
  * https://github.com/mohiva/manitou/blob/master/LICENSE.textile
  *
  * @category  Mohiva/Manitou
- * @package   Mohiva/Manitou/Exceptions
+ * @package   Mohiva/Manitou/Generators
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/manitou/blob/master/LICENSE.textile New BSD License
@@ -27,7 +27,7 @@ use com\mohiva\manitou\exceptions\GlobalNamespaceWithoutBracesException;
  * A namespace consists of use statements and classes/interfaces.
  *
  * @category  Mohiva/Manitou
- * @package   Mohiva/Manitou/Exceptions
+ * @package   Mohiva/Manitou/Generators
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/manitou/blob/master/LICENSE.textile New BSD License
@@ -40,7 +40,7 @@ class PHPNamespace extends Generator {
 	 *
 	 * @var string
 	 */
-	protected $name = null;
+	private $name = null;
 
 	/**
 	 * Indicates if the bracketed syntax should be used.
@@ -48,28 +48,28 @@ class PHPNamespace extends Generator {
 	 * @var boolean
 	 * @see http://www.php.net/manual/en/language.namespaces.definitionmultiple.php
 	 */
-	protected $isBracketed = false;
+	private $isBracketed = false;
 
 	/**
 	 * A list of use statements.
 	 *
 	 * @var array
 	 */
-	protected $useStatements = array();
+	private $useStatements = array();
 
 	/**
 	 * A list of classes contained in this namespace.
 	 *
 	 * @var array
 	 */
-	protected $classes = array();
+	private $classes = array();
 
 	/**
 	 * A list of interfaces contained in this namespace.
 	 *
 	 * @var array
 	 */
-	protected $interfaces = array();
+	private $interfaces = array();
 
 	/**
 	 * The class constructor.
@@ -321,7 +321,7 @@ class PHPNamespace extends Generator {
 	 *
 	 * @return string The complete namespace definition containing additionally use statements, classes and interfaces.
 	 */
-	protected function generateNamespaceWithBraces() {
+	private function generateNamespaceWithBraces() {
 
 		$body  = $this->generateUseStaments();
 		$body .= $this->generateClasses();
@@ -343,7 +343,7 @@ class PHPNamespace extends Generator {
 	 *
 	 * @return string The complete namespace definition containing additionally use statements and classes.
 	 */
-	protected function generateNamespaceWithoutBraces() {
+	private function generateNamespaceWithoutBraces() {
 
 		$lineFeed = self::getConfig()->getNewline();
 		$code  = 'namespace ' . $this->name . ';' . $lineFeed;
@@ -359,7 +359,7 @@ class PHPNamespace extends Generator {
 	 *
 	 * @return string The content of all set use statements or an empty string if no use statements are set.
 	 */
-	protected function generateUseStaments() {
+	private function generateUseStaments() {
 
 		if (!$this->useStatements) {
 			return '';
@@ -380,7 +380,7 @@ class PHPNamespace extends Generator {
 	 *
 	 * @return string The content of all set classes or an empty string if no classes are set.
 	 */
-	protected function generateClasses() {
+	private function generateClasses() {
 
 		if (!$this->classes) {
 			return '';
@@ -402,7 +402,7 @@ class PHPNamespace extends Generator {
 	 *
 	 * @return string The content of all set interfaces or an empty string if no interfaces are set.
 	 */
-	protected function generateInterfaces() {
+	private function generateInterfaces() {
 
 		if (!$this->interfaces) {
 			return '';

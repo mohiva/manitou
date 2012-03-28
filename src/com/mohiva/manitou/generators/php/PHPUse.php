@@ -10,7 +10,7 @@
  * https://github.com/mohiva/manitou/blob/master/LICENSE.textile
  *
  * @category  Mohiva/Manitou
- * @package   Mohiva/Manitou/Exceptions
+ * @package   Mohiva/Manitou/Generators
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/manitou/blob/master/LICENSE.textile New BSD License
@@ -24,7 +24,7 @@ use com\mohiva\manitou\Generator;
  * Generates the source code for a use statement.
  *
  * @category  Mohiva/Manitou
- * @package   Mohiva/Manitou/Exceptions
+ * @package   Mohiva/Manitou/Generators
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/manitou/blob/master/LICENSE.textile New BSD License
@@ -37,14 +37,14 @@ class PHPUse extends Generator {
 	 *
 	 * @var string
 	 */
-	protected $fqn = null;
+	private $fqn = null;
 
 	/**
 	 * An alias for the fully qualified class or namespace name.
 	 *
 	 * @var string
 	 */
-	protected $alias = null;
+	private $alias = null;
 
 	/**
 	 * The class constructor.

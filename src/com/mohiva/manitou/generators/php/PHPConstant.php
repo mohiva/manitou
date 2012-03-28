@@ -10,7 +10,7 @@
  * https://github.com/mohiva/manitou/blob/master/LICENSE.textile
  *
  * @category  Mohiva/Manitou
- * @package   Mohiva/Manitou/Exceptions
+ * @package   Mohiva/Manitou/Generators
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/manitou/blob/master/LICENSE.textile New BSD License
@@ -27,7 +27,7 @@ use com\mohiva\manitou\Generator;
  * `
  *
  * @category  Mohiva/Manitou
- * @package   Mohiva/Manitou/Exceptions
+ * @package   Mohiva/Manitou/Generators
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/manitou/blob/master/LICENSE.textile New BSD License
@@ -40,21 +40,21 @@ class PHPConstant extends Generator {
 	 *
 	 * @var string
 	 */
-	protected $name = null;
+	private $name = null;
 
 	/**
 	 * The value of the constant.
 	 *
 	 * @var PHPValue
 	 */
-	protected $value = null;
+	private $value = null;
 
 	/**
 	 * The constant DocBlock.
 	 *
 	 * @var PHPDocBlock
 	 */
-	protected $docBlock = null;
+	private $docBlock = null;
 
 	/**
 	 * The class constructor.
@@ -156,7 +156,7 @@ class PHPConstant extends Generator {
 	 *
 	 * @return string The DocBlock content or an empty string if no DocBlock is set.
 	 */
-	protected function generateDocBlock() {
+	private function generateDocBlock() {
 
 		if (!$this->docBlock) {
 			return '';

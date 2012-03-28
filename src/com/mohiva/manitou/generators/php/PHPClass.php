@@ -10,7 +10,7 @@
  * https://github.com/mohiva/manitou/blob/master/LICENSE.textile
  *
  * @category  Mohiva/Manitou
- * @package   Mohiva/Manitou/Exceptions
+ * @package   Mohiva/Manitou/Generators
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/manitou/blob/master/LICENSE.textile New BSD License
@@ -25,7 +25,7 @@ use com\mohiva\manitou\exceptions\FinalAbstractClassException;
  * Generates the source code for a class.
  *
  * @category  Mohiva/Manitou
- * @package   Mohiva/Manitou/Exceptions
+ * @package   Mohiva/Manitou/Generators
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/manitou/blob/master/LICENSE.textile New BSD License
@@ -38,63 +38,63 @@ class PHPClass extends Generator {
 	 *
 	 * @var string
 	 */
-	protected $name = null;
+	private $name = null;
 
 	/**
 	 * Indicates if the class is abstract or not.
 	 *
 	 * @var boolean
 	 */
-	protected $isAbstract = false;
+	private $isAbstract = false;
 
 	/**
 	 * Indicates if the class is final or not.
 	 *
 	 * @var boolean
 	 */
-	protected $isFinal = false;
+	private $isFinal = false;
 
 	/**
 	 * The name of a class to inherit.
 	 *
 	 * @var string
 	 */
-	protected $parentClass = null;
+	private $parentClass = null;
 
 	/**
 	 * A list of implemented interfaces.
 	 *
 	 * @var array
 	 */
-	protected $implInterfaces = array();
+	private $implInterfaces = array();
 
 	/**
 	 * A list of class constants.
 	 *
 	 * @var array
 	 */
-	protected $constants = array();
+	private $constants = array();
 
 	/**
 	 * A list of properties contained in this class.
 	 *
 	 * @var array
 	 */
-	protected $properties = array();
+	private $properties = array();
 
 	/**
 	 * A list of methods contained in this class.
 	 *
 	 * @var array
 	 */
-	protected $methods = array();
+	private $methods = array();
 
 	/**
 	 * The class DocBlock.
 	 *
 	 * @var PHPDocBlock
 	 */
-	protected $docBlock = null;
+	private $docBlock = null;
 
 	/**
 	 * The class constructor.
@@ -489,7 +489,7 @@ class PHPClass extends Generator {
 	 *
 	 * @return string The DocBlock content or an empty string if no DocBlock is set.
 	 */
-	protected function generateDocBlock() {
+	private function generateDocBlock() {
 
 		if (!$this->docBlock) {
 			return '';
@@ -505,7 +505,7 @@ class PHPClass extends Generator {
 	 *
 	 * @return string The interface definition or an empty string if no interfaces are set.
 	 */
-	protected function generateImplInterfaces() {
+	private function generateImplInterfaces() {
 
 		if (!$this->implInterfaces) {
 			return '';
@@ -522,7 +522,7 @@ class PHPClass extends Generator {
 	 *
 	 * @return string The body or an empty string if no constants, properties or methods are set.
 	 */
-	protected function generateBody() {
+	private function generateBody() {
 
 		if (!$this->constants &&
 			!$this->properties &&
@@ -543,7 +543,7 @@ class PHPClass extends Generator {
 	 *
 	 * @return string The constants part or an empty string if no constants are set.
 	 */
-	protected function generateConstants() {
+	private function generateConstants() {
 
 		if (!$this->constants) {
 			return '';
@@ -565,7 +565,7 @@ class PHPClass extends Generator {
 	 *
 	 * @return string The properties part or an empty string if no properties are set.
 	 */
-	protected function generateProperties() {
+	private function generateProperties() {
 
 		if (!$this->properties) {
 			return '';
@@ -588,7 +588,7 @@ class PHPClass extends Generator {
 	 *
 	 * @return string The methods part or an empty string if no methods are set.
 	 */
-	protected function generateMethods() {
+	private function generateMethods() {
 
 		if (!$this->methods) {
 			return '';

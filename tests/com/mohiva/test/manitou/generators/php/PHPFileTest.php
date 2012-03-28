@@ -39,20 +39,21 @@ use com\mohiva\manitou\generators\php\PHPClass;
 class PHPFileTest extends AbstractGenerator {
 
 	/**
-	 * Test if can set or get a DocBlock object.
+	 * Test the `setDocBlock` and `getDocBlock` accessors.
 	 */
 	public function testDocBlockAccessors() {
 
+		$docBlock = new PHPDocBlock;
 		$file = new PHPFile();
-		$file->setDocBlock(new PHPDocBlock());
+		$file->setDocBlock($docBlock);
 
-		$this->assertInstanceOf('com\mohiva\manitou\generators\php\PHPDocBlock', $file->getDocBlock());
+		$this->assertSame($docBlock, $file->getDocBlock());
 	}
 
 	/**
-	 * Test if can set or get namespaces.
+	 * Test the `setNamespaces` and `getNamespaces` accessors.
 	 */
-	public function testNamespacesAccessors() {
+	public function testNamespaceAccessors() {
 
 		$namespace1 = new PHPNamespace('com\mohiva\test1');
 		$namespace2 = new PHPNamespace('com\mohiva\test2');
@@ -104,7 +105,7 @@ class PHPFileTest extends AbstractGenerator {
 	}
 
 	/**
-	 * Test if can set or get classes.
+	 * Test the `setClasses` and `getClasses` accessors.
 	 */
 	public function testClassAccessors() {
 
@@ -158,7 +159,7 @@ class PHPFileTest extends AbstractGenerator {
 	}
 
 	/**
-	 * Test if can set or get interfaces.
+	 * Test the `setInterfaces` and `getInterfaces` accessors.
 	 */
 	public function testInterfaceAccessors() {
 

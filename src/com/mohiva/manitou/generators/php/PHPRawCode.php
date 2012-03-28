@@ -10,7 +10,7 @@
  * https://github.com/mohiva/manitou/blob/master/LICENSE.textile
  *
  * @category  Mohiva/Manitou
- * @package   Mohiva/Manitou/Exceptions
+ * @package   Mohiva/Manitou/Generators
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/manitou/blob/master/LICENSE.textile New BSD License
@@ -24,7 +24,7 @@ use com\mohiva\manitou\Generator;
  * Generates raw PHP code.
  *
  * @category  Mohiva/Manitou
- * @package   Mohiva/Manitou/Exceptions
+ * @package   Mohiva/Manitou/Generators
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/manitou/blob/master/LICENSE.textile New BSD License
@@ -37,14 +37,14 @@ class PHPRawCode extends Generator {
 	 *
 	 * @var string
 	 */
-	protected $code = '';
+	private $code = '';
 
 	/**
 	 * The default indent level.
 	 *
 	 * @var int
 	 */
-	protected $indentLevel = 0;
+	private $indentLevel = 0;
 
 	/**
 	 * Sets the raw PHP code.

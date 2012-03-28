@@ -40,111 +40,106 @@ use com\mohiva\manitou\generators\php\PHPValue;
 class PHPMethodTest extends AbstractGenerator {
 
 	/**
-	 * Test if can set or get the name of a property.
+	 * Test all getters for the values set with the constructor.
+	 */
+	public function testConstructorAccessors() {
+
+		$name = sha1(microtime(true));
+		$visibility =  mt_rand();
+		$scope = mt_rand();
+		$isAbstract = (bool) mt_rand(0, 1);
+		$isFinal = (bool) mt_rand(0, 1);
+		$isStatic = (bool) mt_rand(0, 1);
+		$method = new PHPMethod(
+			$name,
+			$visibility,
+			$scope,
+			$isAbstract,
+			$isFinal,
+			$isStatic
+		);
+
+		$this->assertSame($name, $method->getName());
+		$this->assertSame($visibility, $method->getVisibility());
+		$this->assertSame($scope, $method->getScope());
+		$this->assertSame($isAbstract, $method->isAbstract());
+		$this->assertSame($isFinal, $method->isFinal());
+		$this->assertSame($isStatic, $method->isStatic());
+	}
+
+	/**
+	 * Test the `setName` and `getName` accessors.
 	 */
 	public function testNameAccessors() {
 
-		$method = new PHPMethod('__construct');
+		$name = sha1(microtime(true));
+		$method = new PHPMethod('test');
+		$method->setName($name);
 
-		$this->assertSame('__construct', $method->getName());
-
-		$method->setName('__destruct');
-
-		$this->assertSame('__destruct', $method->getName());
+		$this->assertSame($name, $method->getName());
 	}
 
 	/**
-	 * Test if can set or get the visibility of a method.
+	 * Test the `setVisibility` and `getVisibility` accessors.
 	 */
 	public function testVisibilityAccessors() {
 
-		$method = new PHPMethod('__construct', PHPMember::VISIBILITY_PRIVATE);
+		$visibility =  mt_rand();
+		$method = new PHPMethod('test');
+		$method->setVisibility($visibility);
 
-		$this->assertSame(PHPMember::VISIBILITY_PRIVATE, $method->getVisibility());
-
-		$method->setVisibility(PHPMember::VISIBILITY_PROTECTED);
-
-		$this->assertSame(PHPMember::VISIBILITY_PROTECTED, $method->getVisibility());
+		$this->assertSame($visibility, $method->getVisibility());
 	}
 
 	/**
-	 * Test if can set or get the scope of a constant.
+	 * Test the `setScope` and `getScope` accessors.
 	 */
 	public function testScopeAccessors() {
 
-		$method = new PHPMethod('__construct', PHPMember::VISIBILITY_PUBLIC, PHPMethod::SCOPE_INTERFACE);
+		$scope =  mt_rand();
+		$method = new PHPMethod('test');
+		$method->setScope($scope);
 
-		$this->assertSame(PHPMethod::SCOPE_INTERFACE, $method->getScope());
-
-		$method->setScope(PHPMethod::SCOPE_CLASS);
-
-		$this->assertSame(PHPMethod::SCOPE_CLASS, $method->getScope());
+		$this->assertSame($scope, $method->getScope());
 	}
 
 	/**
-	 * Test if can set or get the abstract property of the method.
+	 * Test the `setAbstract` and `isAbstract` accessors.
 	 */
 	public function testAbstractAccessors() {
 
-		$method = new PHPMethod(
-			'__construct',
-			PHPMember::VISIBILITY_PUBLIC,
-			PHPMethod::SCOPE_CLASS,
-			true
-		);
-
-		$this->assertTrue($method->isAbstract());
-
+		$method = new PHPMethod('test');
 		$method->setAbstract(false);
 
 		$this->assertFalse($method->isAbstract());
 	}
 
 	/**
-	 * Test if can set or get the final property of a method.
+	 * Test the `setFinal` and `isFinal` accessors.
 	 */
 	public function testFinalAccessors() {
 
-		$method = new PHPMethod(
-			'__construct',
-			PHPMember::VISIBILITY_PUBLIC,
-			PHPMethod::SCOPE_CLASS,
-			false,
-			true
-		);
-
-		$this->assertTrue($method->isFinal());
-
+		$method = new PHPMethod('test');
 		$method->setFinal(false);
 
 		$this->assertFalse($method->isFinal());
 	}
 
 	/**
-	 * Test if can set or get the static property of a method.
+	 * Test the `setStatic` and `isStatic` accessors.
 	 */
 	public function testStaticAccessors() {
 
-		$method = new PHPMethod(
-			'__construct',
-			PHPMember::VISIBILITY_PUBLIC,
-			PHPMethod::SCOPE_CLASS,
-			false,
-			false,
-			true
-		);
-
-		$this->assertTrue($method->isStatic());
-
+		$method = new PHPMethod('test');
 		$method->setStatic(false);
 
 		$this->assertFalse($method->isStatic());
 	}
 
 	/**
-	 * Test if can set or get parameters.
+	 * Test the `setParameters` and `getParameters` accessors.
 	 */
-	public function testParametersAccessors() {
+	public function testParameterAccessors() {
 
 		$param1 = new PHPParameter('index');
 		$param2 = new PHPParameter('keyword');
@@ -153,7 +148,7 @@ class PHPMethodTest extends AbstractGenerator {
 			spl_object_hash($param2) => $param2
 		);
 
-		$method = new PHPMethod('__construct');
+		$method = new PHPMethod('test');
 		$method->setParameters($expected);
 
 		$this->assertEquals($expected, $method->getParameters());
@@ -171,7 +166,7 @@ class PHPMethodTest extends AbstractGenerator {
 			spl_object_hash($param2) => $param2
 		);
 
-		$method = new PHPMethod('__construct');
+		$method = new PHPMethod('test');
 		$method->addParameter($param1);
 		$method->addParameter($param2);
 
@@ -186,7 +181,7 @@ class PHPMethodTest extends AbstractGenerator {
 		$param1 = new PHPParameter('index');
 		$param2 = new PHPParameter('keyword');
 
-		$method = new PHPMethod('__construct');
+		$method = new PHPMethod('test');
 		$method->addParameter($param1);
 		$method->addParameter($param2);
 		$method->removeParameter($param1);
@@ -196,25 +191,27 @@ class PHPMethodTest extends AbstractGenerator {
 	}
 
 	/**
-	 * Test if can set or get a DocBlock object.
+	 * Test the `setDocBlock` and `getDocBlock` accessors.
 	 */
 	public function testDocBlockAccessors() {
 
-		$method = new PHPMethod('__construct');
-		$method->setDocBlock(new PHPDocBlock());
+		$docBlock = new PHPDocBlock;
+		$method = new PHPMethod('test');
+		$method->setDocBlock($docBlock);
 
-		$this->assertInstanceOf('com\mohiva\manitou\generators\php\PHPDocBlock', $method->getDocBlock());
+		$this->assertSame($docBlock, $method->getDocBlock());
 	}
 
 	/**
-	 * Test if can set or get the body of the method.
+	 * Test the `setBody` and `getBody` accessors.
 	 */
 	public function testBodyAccessors() {
 
-		$method = new PHPMethod('__construct');
-		$method->setBody(new PHPRawCode());
+		$body = new PHPRawCode;
+		$method = new PHPMethod('test');
+		$method->setBody($body);
 
-		$this->assertInstanceOf('com\mohiva\manitou\generators\php\PHPRawCode', $method->getBody());
+		$this->assertSame($body, $method->getBody());
 	}
 
 	/**

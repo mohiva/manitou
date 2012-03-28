@@ -10,7 +10,7 @@
  * https://github.com/mohiva/manitou/blob/master/LICENSE.textile
  *
  * @category  Mohiva/Manitou
- * @package   Mohiva/Manitou/Exceptions
+ * @package   Mohiva/Manitou/Generators
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/manitou/blob/master/LICENSE.textile New BSD License
@@ -21,10 +21,10 @@ namespace com\mohiva\manitou\generators\php;
 use com\mohiva\manitou\Generator;
 
 /**
- * Generates the DocBlock for a file, class, constant, property or  method.
+ * Generates the DocBlock for a file, class, constant, property or method.
  *
  * @category  Mohiva/Manitou
- * @package   Mohiva/Manitou/Exceptions
+ * @package   Mohiva/Manitou/Generators
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/manitou/blob/master/LICENSE.textile New BSD License
@@ -44,14 +44,14 @@ class PHPDocBlock extends Generator {
 	 *
 	 * @var array
 	 */
-	protected $sections = array();
+	private $sections = array();
 
 	/**
 	 * A list with annotations.
 	 *
 	 * @var array
 	 */
-	protected $annotations = array();
+	private $annotations = array();
 
 	/**
 	 * Sets a list with sections.

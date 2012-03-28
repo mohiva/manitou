@@ -35,28 +35,43 @@ use com\mohiva\manitou\generators\php\PHPUse;
 class PHPUseTest extends AbstractGenerator {
 
 	/**
-	 * Test if can set or get the fully qualified class or namespace name.
+	 * Test all getters for the values set with the constructor.
 	 */
-	public function testFQNAccessors() {
+	public function testConstructorAccessors() {
 
-		$use = new PHPUse('\com\mohiva\test1');
+		$fqn = sha1(microtime(true));
+		$alias = sha1(microtime(true));
+		$use = new PHPUse(
+			$fqn,
+			$alias
+		);
 
-		$this->assertSame('com\mohiva\test1', $use->getFQN());
-
-		$use->setFQN('\com\mohiva\test2');
-
-		$this->assertSame('com\mohiva\test2', $use->getFQN());
+		$this->assertSame($fqn, $use->getFQN());
+		$this->assertSame($alias, $use->getAlias());
 	}
 
 	/**
-	 * Test if can set or get the alias for a fully qualified class or namespace name.
+	 * Test the `setFQN` and `getFQN` accessors.
+	 */
+	public function testFQNAccessors() {
+
+		$fqn = sha1(microtime(true));
+		$use = new PHPUse('test');
+		$use->setFQN($fqn);
+
+		$this->assertSame($fqn, $use->getFQN());
+	}
+
+	/**
+	 * Test the `setAlias` and `getAlias` accessors.
 	 */
 	public function testAliasAccessors() {
 
-		$use = new PHPUse('\com\mohiva\test');
-		$use->setAlias('MyAlias');
+		$alias = sha1(microtime(true));
+		$use = new PHPUse('test');
+		$use->setAlias($alias);
 
-		$this->assertSame('MyAlias', $use->getAlias());
+		$this->assertSame($alias, $use->getAlias());
 	}
 
 	/**

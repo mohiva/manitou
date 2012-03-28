@@ -79,8 +79,9 @@ abstract class Generator {
 	 * Generates the content of the code fragment and return it.
 	 *
 	 * @return string The generated content.
+	 * @codeCoverageIgnoreStart
 	 */
-	abstract public function generate();
+	abstract public function generate(); // @codeCoverageIgnoreEnd
 
 	/**
 	 * Indent the given content with the indent string defined in the config object.

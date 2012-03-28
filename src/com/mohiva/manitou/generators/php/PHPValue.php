@@ -10,7 +10,7 @@
  * https://github.com/mohiva/manitou/blob/master/LICENSE.textile
  *
  * @category  Mohiva/Manitou
- * @package   Mohiva/Manitou/Exceptions
+ * @package   Mohiva/Manitou/Generators
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/manitou/blob/master/LICENSE.textile New BSD License
@@ -25,7 +25,7 @@ use com\mohiva\manitou\Generator;
  * Generates a PHP value.
  *
  * @category  Mohiva/Manitou
- * @package   Mohiva/Manitou/Exceptions
+ * @package   Mohiva/Manitou/Generators
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/manitou/blob/master/LICENSE.textile New BSD License
@@ -63,14 +63,14 @@ class PHPValue extends Generator {
 	 *
 	 * @var mixed
 	 */
-	protected $value = null;
+	private $value = null;
 
 	/**
 	 * The type of the value.
 	 *
 	 * @var string
 	 */
-	protected $type = self::TYPE_AUTO;
+	private $type = self::TYPE_AUTO;
 
 	/**
 	 * Indicates if a array declaration should be written on a
@@ -78,7 +78,7 @@ class PHPValue extends Generator {
 	 *
 	 * @var int
 	 */
-	protected $arrayOutput = self::OUTPUT_MULTI_LINE;
+	private $arrayOutput = self::OUTPUT_MULTI_LINE;
 
 	/**
 	 * The class constructor.
@@ -220,7 +220,7 @@ class PHPValue extends Generator {
 	 * @param int $level The indentation level.
 	 * @return string The string representation of the given array.
 	 */
-	protected function generateArray($data, $level = 1) {
+	private function generateArray($data, $level = 1) {
 
 		$code = '';
 		$config = self::getConfig();
@@ -235,7 +235,7 @@ class PHPValue extends Generator {
 		} else if (is_null($data)) {
 			$code .= 'null';
 		} else if (is_resource($data)) {
-			$code .= 'resource';
+			$code .= 'resource of type (' . get_resource_type($data) . ')';
 		} else if (is_object($data)) {
 			$ref = new \ReflectionObject($data);
 			$props = $ref->getProperties();
@@ -276,7 +276,7 @@ class PHPValue extends Generator {
 	 * @param mixed $value The value.
 	 * @return string The type of the value.
 	 */
-	protected function autoDiscoverType($value) {
+	private function autoDiscoverType($value) {
 
 		if (is_bool($value)) {
 			return self::TYPE_BOOLEAN;

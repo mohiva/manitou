@@ -10,7 +10,7 @@
  * https://github.com/mohiva/manitou/blob/master/LICENSE.textile
  *
  * @category  Mohiva/Manitou
- * @package   Mohiva/Manitou/Exceptions
+ * @package   Mohiva/Manitou/Generators
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/manitou/blob/master/LICENSE.textile New BSD License
@@ -29,7 +29,7 @@ use com\mohiva\manitou\exceptions\WrongNamespaceCombinationException;
  * unusable code. So an exception will be thrown in this situation.
  *
  * @category  Mohiva/Manitou
- * @package   Mohiva/Manitou/Exceptions
+ * @package   Mohiva/Manitou/Generators
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/manitou/blob/master/LICENSE.textile New BSD License
@@ -42,28 +42,28 @@ class PHPFile extends Generator {
 	 *
 	 * @var PHPDocBlock
 	 */
-	protected $docBlock = null;
+	private $docBlock = null;
 
 	/**
 	 * A list of namespaces contained in this file.
 	 *
 	 * @var array
 	 */
-	protected $namespaces = array();
+	private $namespaces = array();
 
 	/**
 	 * A list of classes contained in this file.
 	 *
 	 * @var array
 	 */
-	protected $classes = array();
+	private $classes = array();
 
 	/**
 	 * A list of interfaces contained in this file.
 	 *
 	 * @var array
 	 */
-	protected $interfaces = array();
+	private $interfaces = array();
 
 	/**
 	 * Sets the DocBlock object for this file.
@@ -283,7 +283,7 @@ class PHPFile extends Generator {
 	 *
 	 * @return string The DocBlock content or an empty string if no DocBlock is set.
 	 */
-	protected function generateDocBlock() {
+	private function generateDocBlock() {
 
 		if (!$this->docBlock) {
 			return '';
@@ -301,7 +301,7 @@ class PHPFile extends Generator {
 	 * @throws \com\mohiva\manitou\exceptions\WrongNamespaceCombinationException if multiple namespaces in a file
 	 * doesn't use the same(braced or non-braced) syntax.
 	 */
-	protected function generateNamespaces() {
+	private function generateNamespaces() {
 
 		if (!$this->namespaces) {
 			return '';
@@ -341,7 +341,7 @@ class PHPFile extends Generator {
 	 *
 	 * @return string The content of all set classes or an empty string if no classes are set.
 	 */
-	protected function generateClasses() {
+	private function generateClasses() {
 
 		if (!$this->classes) {
 			return '';
@@ -366,7 +366,7 @@ class PHPFile extends Generator {
 	 *
 	 * @return string The content of all set interfaces or an empty string if no interfaces are set.
 	 */
-	protected function generateInterfaces() {
+	private function generateInterfaces() {
 
 		if (!$this->interfaces) {
 			return '';

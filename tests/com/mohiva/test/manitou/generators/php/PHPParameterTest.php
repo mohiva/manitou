@@ -36,48 +36,59 @@ use com\mohiva\manitou\generators\php\PHPValue;
 class PHPParameterTest extends AbstractGenerator {
 
 	/**
-	 * Test if can set or get the name of a parameter.
+	 * Test all getters for the values set with the constructor.
+	 */
+	public function testConstructorAccessors() {
+
+		$name = sha1(microtime(true));
+		$type = sha1(microtime(true));
+		$value = new PHPValue(1);
+		$parameter = new PHPParameter(
+			$name,
+			$type,
+			$value
+		);
+
+		$this->assertSame($name, $parameter->getName());
+		$this->assertSame($type, $parameter->getType());
+		$this->assertSame($value, $parameter->getValue());
+	}
+
+	/**
+	 * Test the `setName` and `getName` accessors.
 	 */
 	public function testNameAccessors() {
 
-		$parameter = new PHPParameter('name');
+		$name = sha1(microtime(true));
+		$parameter = new PHPParameter('test');
+		$parameter->setName($name);
 
-		$this->assertSame('name', $parameter->getName());
-
-		$parameter->setName('value');
-
-		$this->assertSame('value', $parameter->getName());
+		$this->assertSame($name, $parameter->getName());
 	}
 
 	/**
-	 * Test if can set or get the type of a parameter.
+	 * Test the `setType` and `getType` accessors.
 	 */
 	public function testTypeAccessors() {
 
-		$parameter = new PHPParameter('name', 'int');
+		$type = sha1(microtime(true));
+		$parameter = new PHPParameter('test');
+		$parameter->setType($type);
 
-		$this->assertSame('int', $parameter->getType());
-
-		$parameter->setType('PHPValue');
-
-		$this->assertSame('PHPValue', $parameter->getType());
+		$this->assertSame($type, $parameter->getType());
 	}
 
 	/**
-	 * Test if can set or get the value of a parameter.
+	 * Test the `setValue` and `getValue` accessors.
 	 */
 	public function testValueAccessors() {
 
-		$value1 = new PHPValue(1);
-		$value2 = new PHPValue(2);
+		$value = new PHPValue(1);
 
-		$parameter = new PHPParameter('index', 'int', $value1);
+		$parameter = new PHPParameter('test');
+		$parameter->setValue($value);
 
-		$this->assertSame($value1, $parameter->getValue());
-
-		$parameter->setValue($value2);
-
-		$this->assertSame($value2, $parameter->getValue());
+		$this->assertSame($value, $parameter->getValue());
 	}
 
 	/**
@@ -86,7 +97,7 @@ class PHPParameterTest extends AbstractGenerator {
 	public function testGenerateParameter() {
 
 		$file = Bootstrap::$resourceDir . '/manitou/generators/php/parameter.txt';
-		$expected = $this->getFileContent($file);
+		$expected = trim($this->getFileContent($file));
 
 		$parameter = new PHPParameter('index');
 
@@ -99,7 +110,7 @@ class PHPParameterTest extends AbstractGenerator {
 	public function testGenerateParameterWithType() {
 
 		$file = Bootstrap::$resourceDir . '/manitou/generators/php/parameter_type.txt';
-		$expected = $this->getFileContent($file);
+		$expected = trim($this->getFileContent($file));
 
 		$parameter = new PHPParameter('index', 'int');
 
@@ -112,7 +123,7 @@ class PHPParameterTest extends AbstractGenerator {
 	public function testGenerateParameterWithValue() {
 
 		$file = Bootstrap::$resourceDir . '/manitou/generators/php/parameter_value.txt';
-		$expected = $this->getFileContent($file);
+		$expected = trim($this->getFileContent($file));
 
 		$parameter = new PHPParameter('index', null, new PHPValue(1));
 
@@ -125,7 +136,7 @@ class PHPParameterTest extends AbstractGenerator {
 	public function testGenerateParameterWithTypeAndValue() {
 
 		$file = Bootstrap::$resourceDir . '/manitou/generators/php/parameter_type_value.txt';
-		$expected = $this->getFileContent($file);
+		$expected = trim($this->getFileContent($file));
 
 		$parameter = new PHPParameter('index', 'int', new PHPValue(1));
 

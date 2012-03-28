@@ -37,34 +37,43 @@ use com\mohiva\manitou\generators\php\PHPValue;
 class PHPConstantTest extends AbstractGenerator {
 
 	/**
-	 * Test if can set or get the name of a constant.
+	 * Test all getters for the values set with the constructor.
 	 */
-	public function testNameAccessors() {
+	public function testConstructorAccessors() {
 
-		$constant = new PHPConstant('TEST_CONST1', new PHPValue(1));
+		$name = sha1(microtime(true));
+		$value = new PHPValue(1);
+		$class = new PHPConstant(
+			$name,
+			$value
+		);
 
-		$this->assertSame('TEST_CONST1', $constant->getName());
-
-		$constant->setName('TEST_CONST2');
-
-		$this->assertSame('TEST_CONST2', $constant->getName());
+		$this->assertSame($name, $class->getName());
+		$this->assertSame($value, $class->getValue());
 	}
 
 	/**
-	 * Test if can set or get the value of a constant.
+	 * Test the `setName` and `getName` accessors.
+	 */
+	public function testNameAccessors() {
+
+		$name = sha1(microtime(true));
+		$constant = new PHPConstant('TEST', new PHPValue(1));
+		$constant->setName($name);
+
+		$this->assertSame($name, $constant->getName());
+	}
+
+	/**
+	 * Test the `setValue` and `getValue` accessors.
 	 */
 	public function testValueAccessors() {
 
-		$value1 = new PHPValue(1);
-		$value2 = new PHPValue(2);
+		$value = new PHPValue(1);
+		$constant = new PHPConstant('TEST', new PHPValue(1));
+		$constant->setValue($value);
 
-		$constant = new PHPConstant('TEST_CONST', $value1);
-
-		$this->assertSame($value1, $constant->getValue());
-
-		$constant->setValue($value2);
-
-		$this->assertSame($value2, $constant->getValue());
+		$this->assertSame($value, $constant->getValue());
 	}
 
 	/**

@@ -37,59 +37,69 @@ use com\mohiva\manitou\generators\php\PHPValue;
 class PHPPropertyTest extends AbstractGenerator {
 
 	/**
-	 * Test if can set or get the name of a property.
+	 * Test all getters for the values set with the constructor.
+	 */
+	public function testConstructorAccessors() {
+
+		$name = sha1(microtime(true));
+		$value = new PHPValue(1);
+		$visibility = mt_rand();
+		$isStatic = (bool) mt_rand(0, 1);
+		$property = new PHPProperty(
+			$name,
+			$value,
+			$visibility,
+			$isStatic
+		);
+
+		$this->assertSame($name, $property->getName());
+		$this->assertSame($value, $property->getValue());
+		$this->assertSame($visibility, $property->getVisibility());
+		$this->assertSame($isStatic, $property->isStatic());
+	}
+
+	/**
+	 * Test the `setName` and `getName` accessors.
 	 */
 	public function testNameAccessors() {
 
-		$property = new PHPProperty('name');
+		$name = sha1(microtime(true));
+		$property = new PHPProperty('test');
+		$property->setName($name);
 
-		$this->assertSame('name', $property->getName());
-
-		$property->setName('value');
-
-		$this->assertSame('value', $property->getName());
+		$this->assertSame($name, $property->getName());
 	}
 
 	/**
-	 * Test if can set or get the value of a property.
+	 * Test the `setValue` and `getValue` accessors.
 	 */
 	public function testValueAccessors() {
 
-		$value1 = new PHPValue(1);
-		$value2 = new PHPValue(2);
+		$value = new PHPValue(1);
+		$property = new PHPProperty('test');
+		$property->setValue($value);
 
-		$property = new PHPProperty('index', $value1);
-
-		$this->assertSame($value1, $property->getValue());
-
-		$property->setValue($value2);
-
-		$this->assertSame($value2, $property->getValue());
+		$this->assertSame($value, $property->getValue());
 	}
 
 	/**
-	 * Test if can set or get the visibility of a property.
+	 * Test the `setVisibility` and `getVisibility` accessors.
 	 */
 	public function testVisibilityAccessors() {
 
-		$property = new PHPProperty('index', new PHPValue(1), PHPProperty::VISIBILITY_PRIVATE);
+		$visibility = mt_rand();
+		$property = new PHPProperty('test');
+		$property->setVisibility($visibility);
 
-		$this->assertSame(PHPProperty::VISIBILITY_PRIVATE, $property->getVisibility());
-
-		$property->setVisibility(PHPProperty::VISIBILITY_PROTECTED);
-
-		$this->assertSame(PHPProperty::VISIBILITY_PROTECTED, $property->getVisibility());
+		$this->assertSame($visibility, $property->getVisibility());
 	}
 
 	/**
-	 * Test if can set or get the static property of a property.
+	 * Test the `setStatic` and `isStatic` accessors.
 	 */
 	public function testStaticAccessors() {
 
-		$property = new PHPProperty('index', new PHPValue(1), PHPProperty::VISIBILITY_PRIVATE, true);
-
-		$this->assertTrue($property->isStatic());
-
+		$property = new PHPProperty('test');
 		$property->setStatic(false);
 
 		$this->assertFalse($property->isStatic());
@@ -100,10 +110,11 @@ class PHPPropertyTest extends AbstractGenerator {
 	 */
 	public function testDocBlockAccessors() {
 
-		$property = new PHPProperty('name');
-		$property->setDocBlock(new PHPDocBlock());
+		$docBlock = new PHPDocBlock;
+		$property = new PHPProperty('test');
+		$property->setDocBlock($docBlock);
 
-		$this->assertInstanceOf('com\mohiva\manitou\generators\php\PHPDocBlock', $property->getDocBlock());
+		$this->assertSame($docBlock, $property->getDocBlock());
 	}
 
 	/**

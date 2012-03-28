@@ -36,27 +36,15 @@ use com\mohiva\manitou\generators\php\PHPRawCode;
 class PHPRawCodeTest extends AbstractGenerator {
 
 	/**
-	 * Test if can set or get code.
-	 */
-	public function testCodeAccessors() {
-
-		$code = new PHPRawCode;
-		$code->setCode("echo 'test';");
-
-		$this->assertSame("echo 'test';", $code->getCode());
-	}
-
-	/**
 	 * Test if can add a code fragment to non existing code.
 	 */
 	public function testAddCodeToNonExistingCode() {
 
-		$expected = 'exit();';
-
+		$value = sha1(microtime(true));
 		$code = new PHPRawCode;
-		$code->addCode('exit();');
+		$code->setCode($value);
 
-		$this->assertSame($expected, $code->getCode());
+		$this->assertSame($value, $code->getCode());
 	}
 
 	/**
@@ -64,26 +52,28 @@ class PHPRawCodeTest extends AbstractGenerator {
 	 */
 	public function testAddCodeToExistingCode() {
 
-		$lineFeed = Generator::getConfig()->getNewline();
-		$expected  = "echo 'test';" . $lineFeed;
-		$expected .= 'exit();';
+		$fragment1 = sha1(microtime(true));
+		$fragment2 = sha1(microtime(true));
+		$expected  = $fragment1;
+		$expected .= $fragment2;
 
 		$code = new PHPRawCode;
-		$code->setCode("echo 'test';");
-		$code->addCode($lineFeed . 'exit();');
+		$code->setCode($fragment1);
+		$code->addCode($fragment2);
 
 		$this->assertSame($expected, $code->getCode());
 	}
 
 	/**
-	 * Test if can set or get the indention level.
+	 * Test the `setIndentLevel` and `getIndentLevel` accessors.
 	 */
 	public function testIndentLevelAccessors() {
 
+		$level = mt_rand();
 		$code = new PHPRawCode;
-		$code->setIndentLevel(2);
+		$code->setIndentLevel($level);
 
-		$this->assertSame(2, $code->getIndentLevel());
+		$this->assertSame($level, $code->getIndentLevel());
 	}
 
 	/**
@@ -91,12 +81,12 @@ class PHPRawCodeTest extends AbstractGenerator {
 	 */
 	public function testAddLineToNonExistingCode() {
 
-		$expected = 'exit();';
+		$value = sha1(microtime(true));
 
 		$code = new PHPRawCode;
-		$code->addLine('exit();');
+		$code->addLine($value);
 
-		$this->assertSame($expected, $code->getCode());
+		$this->assertSame($value, $code->getCode());
 	}
 
 	/**
@@ -104,13 +94,15 @@ class PHPRawCodeTest extends AbstractGenerator {
 	 */
 	public function testAddLineToExistingCode() {
 
+		$line1 = sha1(microtime(true));
+		$line2 = sha1(microtime(true));
 		$lineFeed = Generator::getConfig()->getNewline();
-		$expected  = "echo 'test';" . $lineFeed;
-		$expected .= 'exit();';
+		$expected  = $line1 . $lineFeed;
+		$expected .= $line2;
 
 		$code = new PHPRawCode;
-		$code->setCode("echo 'test';");
-		$code->addLine('exit();');
+		$code->setCode($line1);
+		$code->addLine($line2);
 
 		$this->assertSame($expected, $code->getCode());
 	}

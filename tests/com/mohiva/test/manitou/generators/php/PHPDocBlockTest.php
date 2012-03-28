@@ -36,13 +36,15 @@ use com\mohiva\test\manitou\AbstractGenerator;
 class PHPDocBlockTest extends AbstractGenerator {
 
 	/**
-	 * Test if can set or get sections of a DocBlock.
+	 * Test the `setSections` and `getSections` accessors.
 	 */
 	public function testSectionAccessors() {
 
+		$section1 = sha1(microtime(true));
+		$section2 = sha1(microtime(true));
 		$sections = array(
-			sha1('Short comment') => 'Short comment',
-			sha1('Long comment') => 'Long comment'
+			sha1($section1) => $section1,
+			sha1($section2) => $section2
 		);
 
 		$docBlock = new PHPDocBlock;
@@ -56,14 +58,16 @@ class PHPDocBlockTest extends AbstractGenerator {
 	 */
 	public function testAddSection() {
 
+		$section1 = sha1(microtime(true));
+		$section2 = sha1(microtime(true));
 		$expected = array(
-			sha1('Short comment') => 'Short comment',
-			sha1('Long comment') => 'Long comment'
+			sha1($section1) => $section1,
+			sha1($section2) => $section2
 		);
 
 		$docBlock = new PHPDocBlock;
-		$docBlock->addSection('Short comment');
-		$docBlock->addSection('Long comment');
+		$docBlock->addSection($section1);
+		$docBlock->addSection($section2);
 
 		$this->assertSame($expected, $docBlock->getSections());
 	}
@@ -71,25 +75,30 @@ class PHPDocBlockTest extends AbstractGenerator {
 	/**
 	 * Test if can remove multiple sections.
 	 */
-	public function testRemoveParent() {
+	public function testRemoveSection() {
+
+		$section1 = sha1(microtime(true));
+		$section2 = sha1(microtime(true));
 
 		$docBlock = new PHPDocBlock;
-		$docBlock->addSection('Short comment');
-		$docBlock->addSection('Long comment');
-		$docBlock->removeSection('Short comment');
-		$docBlock->removeSection('Long comment');
+		$docBlock->addSection($section1);
+		$docBlock->addSection($section2);
+		$docBlock->removeSection($section1);
+		$docBlock->removeSection($section2);
 
 		$this->assertSame(array(), $docBlock->getSections());
 	}
 
 	/**
-	 * Test if can set or get annotations of a DocBlock.
+	 * Test the `setAnnotations` and `getAnnotations` accessors.
 	 */
 	public function testAnnotationAccessors() {
 
+		$annotation1 = sha1(microtime(true));
+		$annotation2 = sha1(microtime(true));
 		$annotations = array(
-			sha1('@param string $string A string.') => '@param string $string A string.',
-			sha1('@return string A String.') => '@return string A String.'
+			sha1($annotation1) => $annotation1,
+			sha1($annotation2) => $annotation2
 		);
 
 		$docBlock = new PHPDocBlock;
@@ -103,14 +112,16 @@ class PHPDocBlockTest extends AbstractGenerator {
 	 */
 	public function testAddAnnotation() {
 
+		$annotation1 = sha1(microtime(true));
+		$annotation2 = sha1(microtime(true));
 		$expected = array(
-			sha1('@param string $string A string.') => '@param string $string A string.',
-			sha1('@return string A String.') => '@return string A String.'
+			sha1($annotation1) => $annotation1,
+			sha1($annotation2) => $annotation2
 		);
 
 		$docBlock = new PHPDocBlock;
-		$docBlock->addAnnotation('@param string $string A string.');
-		$docBlock->addAnnotation('@return string A String.');
+		$docBlock->addAnnotation($annotation1);
+		$docBlock->addAnnotation($annotation2);
 
 		$this->assertSame($expected, $docBlock->getAnnotations());
 	}
@@ -120,11 +131,13 @@ class PHPDocBlockTest extends AbstractGenerator {
 	 */
 	public function testRemoveAnnotation() {
 
+		$annotation1 = sha1(microtime(true));
+		$annotation2 = sha1(microtime(true));
 		$docBlock = new PHPDocBlock;
-		$docBlock->addAnnotation('@param string $string A string.');
-		$docBlock->addAnnotation('@return string A String.');
-		$docBlock->removeAnnotation('@param string $string A string.');
-		$docBlock->removeAnnotation('@return string A String.');
+		$docBlock->addAnnotation($annotation1);
+		$docBlock->addAnnotation($annotation2);
+		$docBlock->removeAnnotation($annotation1);
+		$docBlock->removeAnnotation($annotation2);
 
 		$this->assertSame(array(), $docBlock->getSections());
 	}

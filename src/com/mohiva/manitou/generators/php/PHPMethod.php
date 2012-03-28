@@ -10,7 +10,7 @@
  * https://github.com/mohiva/manitou/blob/master/LICENSE.textile
  *
  * @category  Mohiva/Manitou
- * @package   Mohiva/Manitou/Exceptions
+ * @package   Mohiva/Manitou/Generators
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/manitou/blob/master/LICENSE.textile New BSD License
@@ -30,7 +30,7 @@ use com\mohiva\manitou\exceptions\InterfaceMethodContainsBodyException;
  * Generates the source code for a method.
  *
  * @category  Mohiva/Manitou
- * @package   Mohiva/Manitou/Exceptions
+ * @package   Mohiva/Manitou/Generators
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/manitou/blob/master/LICENSE.textile New BSD License
@@ -51,21 +51,21 @@ class PHPMethod extends PHPMember {
 	 *
 	 * @var array
 	 */
-	protected $parameters = array();
+	private $parameters = array();
 
 	/**
 	 * Indicates if the method is abstract or not.
 	 *
 	 * @var boolean
 	 */
-	protected $isAbstract = false;
+	private $isAbstract = false;
 
 	/**
 	 * Indicates if the method is final or not.
 	 *
 	 * @var boolean
 	 */
-	protected $isFinal = false;
+	private $isFinal = false;
 
 	/**
 	 * The scope of the method. This must be one of the values
@@ -74,14 +74,14 @@ class PHPMethod extends PHPMember {
 	 *
 	 * @var int
 	 */
-	protected $scope = self::SCOPE_CLASS;
+	private $scope = self::SCOPE_CLASS;
 
 	/**
 	 * The body of the method.
 	 *
 	 * @var PHPRawCode
 	 */
-	protected $body = null;
+	private $body = null;
 
 	/**
 	 * The class constructor.
@@ -286,7 +286,7 @@ class PHPMethod extends PHPMember {
 	 * @throws \com\mohiva\manitou\exceptions\AbstractClassMethodContainsBodyException if an abstract method
 	 * contains body.
 	 */
-	protected function generateClassMethod() {
+	private function generateClassMethod() {
 
 		if ($this->isAbstract && $this->isFinal) {
 			throw new FinalAbstractClassMethodException('Cannot use final keyword for abstract method');
@@ -326,7 +326,7 @@ class PHPMethod extends PHPMember {
 	 * @throws \com\mohiva\manitou\exceptions\InterfaceMethodContainsBodyException if an interface method
 	 * contains body.
 	 */
-	protected function generateInterfaceMethod() {
+	private function generateInterfaceMethod() {
 
 		if ($this->isAbstract) {
 			throw new AbstractInterfaceMethodException('Cannot use abstract keyword for interface method');
@@ -352,7 +352,7 @@ class PHPMethod extends PHPMember {
 	 *
 	 * @return string The parameter list or an empty string if no parameters are set.
 	 */
-	protected function generateParameterList() {
+	private function generateParameterList() {
 
 		if (!$this->parameters) {
 			return '';
@@ -372,7 +372,7 @@ class PHPMethod extends PHPMember {
 	 *
 	 * @return string The body or an empty string if no body is set.
 	 */
-	protected function generateBody() {
+	private function generateBody() {
 
 		if (!$this->body) {
 			return '';

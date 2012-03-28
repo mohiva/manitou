@@ -35,46 +35,55 @@ use com\mohiva\manitou\generators\php\PHPValue;
 class PHPValueTest extends AbstractGenerator {
 
 	/**
-	 * Test if can set or get the name of a class.
+	 * Test all getters for the values set with the constructor.
+	 */
+	public function testConstructorAccessors() {
+
+		$val = mt_rand();
+		$type = sha1(microtime(true));
+		$value = new PHPValue(
+			$val,
+			$type
+		);
+
+		$this->assertSame($val, $value->getValue());
+		$this->assertSame($type, $value->getType());
+	}
+
+	/**
+	 * Test the `setValue` and `getValue` accessors.
 	 */
 	public function testValueAccessors() {
 
-		$value = new PHPValue(1);
+		$val = mt_rand();
+		$value = new PHPValue('test');
+		$value->setValue($val);
 
-		$this->assertSame(1, $value->getValue());
-
-		$value->setValue('value');
-
-		$this->assertSame('value', $value->getValue());
+		$this->assertSame($val, $value->getValue());
 	}
 
 	/**
-	 * Test if can set or get the inherited class.
+	 * Test the `setType` and `getType` accessors.
 	 */
 	public function testTypeAccessors() {
 
-		$value = new PHPValue(1, PHPValue::TYPE_NUMBER);
+		$type = mt_rand();
+		$value = new PHPValue('test');
+		$value->setType($type);
 
-		$this->assertSame(PHPValue::TYPE_NUMBER, $value->getType());
-
-		$value->setType(PHPValue::TYPE_BOOLEAN);
-
-		$this->assertSame(PHPValue::TYPE_BOOLEAN, $value->getType());
+		$this->assertSame($type, $value->getType());
 	}
 
 	/**
-	 * Test if can set or get the array output method.
+	 * Test the `setArrayOutput` and `getArrayOutput` accessors.
 	 */
 	public function testArrayOutputAccessors() {
 
-		$value = new PHPValue(array(1));
-		$value->setArrayOutput(PHPValue::OUTPUT_MULTI_LINE);
+		$output = mt_rand(1, 2);
+		$value = new PHPValue('test');
+		$value->setArrayOutput($output);
 
-		$this->assertSame(PHPValue::OUTPUT_MULTI_LINE, $value->getArrayOutput());
-
-		$value->setArrayOutput(PHPValue::OUTPUT_SINGLE_LINE);
-
-		$this->assertSame(PHPValue::OUTPUT_SINGLE_LINE, $value->getArrayOutput());
+		$this->assertSame($output, $value->getArrayOutput());
 	}
 
 	/**
@@ -181,7 +190,7 @@ class PHPValueTest extends AbstractGenerator {
 	public function testGenerateSingleLineArray() {
 
 		$file = Bootstrap::$resourceDir . '/manitou/generators/php/value_array_single_line.txt';
-		$expected = $this->getFileContent($file);
+		$expected = trim($this->getFileContent($file));
 
 		$value = new PHPValue(array(1, 2, "te\"st" => 3), PHPValue::TYPE_ARRAY);
 		$value->setArrayOutput(PHPValue::OUTPUT_SINGLE_LINE);
@@ -190,9 +199,9 @@ class PHPValueTest extends AbstractGenerator {
 	}
 
 	/**
-	 * Test if can generate a single line array.
+	 * Test if can generate a multi line array.
 	 */
-	public function testGenerateMutliLineArray() {
+	public function testGenerateMultiLineArray() {
 
 		$obj1 = new \stdClass();
 		$obj1->test = 'test';
@@ -208,11 +217,12 @@ class PHPValueTest extends AbstractGenerator {
 			3,
 			array(1 => 1, 2 => 2),
 			array($obj2),
-			array(array(1, 2, 'test'), array(true, false, null))
+			array(array(1, 2, 'test'), array(true, false, null)),
+			fopen('php://memory', 'r')
 		);
 
 		$file = Bootstrap::$resourceDir . '/manitou/generators/php/value_array_multi_line.txt';
-		$expected = $this->getFileContent($file);
+		$expected = trim($this->getFileContent($file));
 
 		$value = new PHPValue($array, PHPValue::TYPE_ARRAY);
 		$value->setArrayOutput(PHPValue::OUTPUT_MULTI_LINE);
