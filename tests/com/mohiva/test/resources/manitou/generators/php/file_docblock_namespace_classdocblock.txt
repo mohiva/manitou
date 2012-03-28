@@ -1,10 +1,10 @@
 <?php
 /**
- * 
+ *
  */
 namespace com\mohiva\framework;
 
 /**
- * 
+ *
  */
 class Test1 {}

@@ -22,7 +22,7 @@ use com\mohiva\manitou\Generator;
 
 /**
  * Abstract unit test case for the Mohiva php code generator classes.
- * 
+ *
  * @category  Mohiva/Manitou
  * @package   Mohiva/Manitou/Test
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -31,19 +31,19 @@ use com\mohiva\manitou\Generator;
  * @link      https://github.com/mohiva/manitou
  */
 abstract class AbstractGenerator extends \PHPUnit_Framework_TestCase {
-	
+
 	/**
-	 * Get the content from the given file and replace all line endings with the 
+	 * Get the content from the given file and replace all line endings with the
 	 * current `Generator::LINE_FEED` character.
-	 * 
+	 *
 	 * @param string $file The name of the file to load.
 	 * @return string The content of the file with the current line ending.
 	 */
 	protected function getFileContent($file) {
-		
+
 		$content = file_get_contents($file);
-		$content = preg_replace('/\r\n|\r|\n/', Generator::LINE_FEED, $content);
-		
+		$content = preg_replace('/\r\n|\r|\n/', Generator::getConfig()->getNewline(), $content);
+
 		return $content;
 	}
 }

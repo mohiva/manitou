@@ -21,9 +21,9 @@ namespace com\mohiva\manitou\exceptions;
 use com\mohiva\common\exceptions\SyntaxErrorException;
 
 /**
- * Exception class that indicates a syntax error through the wrong combination 
+ * Exception class that indicates a syntax error through the wrong combination
  * of multiple namespaces.
- * 
+ *
  * @category  Mohiva/Manitou
  * @package   Mohiva/Manitou/Exceptions
  * @author    Christian Kaps <christian.kaps@mohiva.com>

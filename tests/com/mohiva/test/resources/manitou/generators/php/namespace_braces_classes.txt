@@ -1,6 +1,6 @@
 namespace com\mohiva\test {
-	
+
 	class Test1 {}
-	
+
 	class Test2 {}
 }

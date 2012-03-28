@@ -10,7 +10,7 @@
  * https://github.com/mohiva/manitou/blob/master/LICENSE.textile
  *
  * @category  Mohiva/Manitou
- * @package   Mohiva/Manitou/Exceptions
+ * @package   Mohiva/Manitou
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/manitou/blob/master/LICENSE.textile New BSD License
@@ -20,81 +20,89 @@ namespace com\mohiva\manitou;
 
 /**
  * Abstract generator class.
- * 
+ *
  * Provides basic functionality for all generator classes.
- * 
+ *
  * @category  Mohiva/Manitou
- * @package   Mohiva/Manitou/Exceptions
+ * @package   Mohiva/Manitou
  * @author    Christian Kaps <christian.kaps@mohiva.com>
  * @copyright Copyright (c) 2007-2012 Christian Kaps (http://www.mohiva.com)
  * @license   https://github.com/mohiva/manitou/blob/master/LICENSE.textile New BSD License
  * @link      https://github.com/mohiva/manitou
  */
 abstract class Generator {
-	
+
 	/**
-	 * The line feed control character.
-	 * 
-	 * @var string
+	 * The config object for the generator classes.
+	 *
+	 * @var Config
 	 */
-	const LINE_FEED = PHP_EOL;
-	
+	protected static $config = null;
+
 	/**
-	 * The indentation string for all code generator classes.
-	 * 
-	 * @var string
+	 * Sets the config object for the generator classes.
+	 *
+	 * @param Config $config The config object for the generator classes.
 	 */
-	protected static $indentString = "\t";
-	
-	/**
-	 * Sets the string which should be used for indentation.
-	 * 
-	 * @param string $indentString The string which should be used for indentation.
-	 */
-	public static function setIndentString($indentString) {
-		
-		self::$indentString = $indentString;
+	public static function setConfig(Config $config) {
+
+		self::$config = $config;
 	}
-	
+
 	/**
-	 * Gets the string which is used for indentation.
-	 * 
-	 * @return int The string which is used for indentation.
+	 * Gets the config object for the generator classes.
+	 *
+	 * If no config object was set previously, then this method creates an default config.
+	 *
+	 * @return Config The config object for the generator classes.
 	 */
-	public static function getIndentString() {
-		
-		return self::$indentString;
+	public static function getConfig() {
+
+		if (self::$config === null) {
+			self::$config = new Config();
+		}
+
+		return self::$config;
 	}
-	
+
 	/**
 	 * Wrapper for the `generate()` method.
-	 * 
-	 * @return The generated string.
+	 *
+	 * @return string The generated string.
 	 */
 	public function __toString() {
-		
+
 		return $this->generate();
 	}
-	
+
 	/**
 	 * Generates the content of the code fragment and return it.
-	 * 
+	 *
 	 * @return string The generated content.
+	 * @codeCoverageIgnoreStart
 	 */
-	abstract public function generate();
-	
+	abstract public function generate(); // @codeCoverageIgnoreEnd
+
 	/**
-	 * Indent the given content by the current indentation value.
-	 * 
+	 * Indent the given content with the indent string defined in the config object.
+	 *
 	 * @param string $content The content to indent.
+	 * @param int $level The indention level. 0 for no indention, 1 for the first level, 2 for the second and so one.
 	 * @return string The indented content.
 	 */
-	protected function indent($content) {
-		
-		$indentation = self::getIndentString();
-		$pattern = '/([^' . self::LINE_FEED . ']*' . self::LINE_FEED . ')/';
+	public function indent($content, $level = 1) {
+
+		if ($level == 0) {
+			return $content;
+		}
+
+		$config = self::getConfig();
+		$indentation = str_repeat($config->getIndentString(), $level);
+
+		$emptyLinePattern = $config->emptyLinesIndented() ? '*' : '+';
+		$pattern = "/([^\r\n]" . $emptyLinePattern . ")/";
 		$content = preg_replace($pattern, $indentation . '$1', $content);
-		
+
 		return $content;
 	}
 }

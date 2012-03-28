@@ -28,5 +28,6 @@ array(
 			1 => false,
 			2 => null
 		)
-	)
+	),
+	6 => resource of type (stream)
 )

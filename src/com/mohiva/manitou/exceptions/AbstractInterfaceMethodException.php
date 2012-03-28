@@ -22,7 +22,7 @@ use com\mohiva\common\exceptions\SyntaxErrorException;
 
 /**
  * Exception class that signals that a interface method cannot be abstract.
- * 
+ *
  * @category  Mohiva/Manitou
  * @package   Mohiva/Manitou/Exceptions
  * @author    Christian Kaps <christian.kaps@mohiva.com>
