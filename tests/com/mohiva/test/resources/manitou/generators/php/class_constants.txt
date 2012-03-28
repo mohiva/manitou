@@ -1,8 +1,8 @@
 class Test {
-	
+
 	const VISIBILITY_PUBLIC = 1;
-	
+
 	const VISIBILITY_PROTECTED = 2;
-	
+
 	const VISIBILITY_PRIVATE = 3;
 }

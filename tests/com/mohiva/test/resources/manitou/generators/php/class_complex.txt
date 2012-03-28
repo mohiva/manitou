@@ -2,27 +2,27 @@
  * A complex class example.
  */
 final class Test extends AbstractTest implements Serializable, Countable {
-	
+
 	/**
-	 * 
+	 *
 	 */
 	const TYPE_HTTP = 1;
-	
+
 	/**
-	 * 
+	 *
 	 */
 	const TYPE_CLI = 2;
-	
+
 	/**
-	 * 
+	 *
 	 */
 	protected $type = self::TYPE_CLI;
-	
+
 	/**
 	 * The class constructor.
 	 */
 	public function __construct($type) {
-		
+
 		$this->type = $type;
 	}
 }

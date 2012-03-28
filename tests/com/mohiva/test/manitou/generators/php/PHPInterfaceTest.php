@@ -30,7 +30,7 @@ use com\mohiva\manitou\generators\php\PHPValue;
 
 /**
  * Unit test case for the `PHPInterface` class.
- * 
+ *
  * @category  Mohiva/Manitou
  * @package   Mohiva/Manitou/Test
  * @author    Christian Kaps <christian.kaps@mohiva.com>
@@ -39,156 +39,274 @@ use com\mohiva\manitou\generators\php\PHPValue;
  * @link      https://github.com/mohiva/manitou
  */
 class PHPInterfaceTest extends AbstractGenerator {
-	
+
 	/**
-	 * Test if can set or get the name of an interface.
+	 * Test all getters for the values set with the constructor.
+	 */
+	public function testConstructorAccessors() {
+
+		$name = sha1(microtime(true));
+		$parentInterface = sha1(microtime(true));
+		$parentInterfaces = array(sha1($parentInterface) => $parentInterface);
+		$interface = new PHPInterface(
+			$name,
+			$parentInterfaces
+		);
+
+		$this->assertSame($name, $interface->getName());
+		$this->assertSame($parentInterfaces, $interface->getParentInterfaces());
+	}
+
+	/**
+	 * Test the `setName` and `getName` accessors.
 	 */
 	public function testNameAccessors() {
-		
-		$interface = new PHPInterface('Test1');
-		
-		$this->assertSame('Test1', $interface->getName());
-		
-		$interface->setName('Test2');
-		
-		$this->assertSame('Test2', $interface->getName());
+
+		$name = sha1(microtime(true));
+
+		$interface = new PHPInterface('Test');
+		$interface->setName($name);
+
+		$this->assertSame($name, $interface->getName());
 	}
-	
+
 	/**
-	 * Test if can set or get the parent interfaces list.
+	 * Test the `setParentInterfaces` and `getParentInterfaces` accessors.
 	 */
 	public function testParentInterfacesAccessors() {
-		
-		$expected1 = array(sha1('Countable') => 'Countable');
-		$expected2 = array(sha1('OuterIterator') => 'OuterIterator');
-		
-		$interface = new PHPInterface('Test', array('Countable'));
-		
-		$this->assertSame($expected1, $interface->getParentInterfaces());
-		
-		$interface->setParentInterfaces(array('OuterIterator'));
-		
-		$this->assertSame($expected2, $interface->getParentInterfaces());
+
+		$parentInterface = sha1(microtime(true));
+		$parentInterfaces = array(sha1($parentInterface) => $parentInterface);
+
+		$interface = new PHPInterface('Test');
+		$interface->setParentInterfaces($parentInterfaces);
+
+		$this->assertSame($parentInterfaces, $interface->getParentInterfaces());
 	}
-	
+
 	/**
 	 * Test if can add multiple parent interfaces.
 	 */
 	public function testAddParentInterface() {
-		
+
+		$parentInterface1 = sha1(microtime(true));
+		$parentInterface2 = sha1(microtime(true));
 		$expected = array(
-			sha1('Countable') => 'Countable',
-			sha1('OuterIterator') => 'OuterIterator'
+			sha1($parentInterface1) => $parentInterface1,
+			sha1($parentInterface2) => $parentInterface2
 		);
-		
+
 		$interface = new PHPInterface('Test');
-		$interface->addParentInterface('Countable');
-		$interface->addParentInterface('OuterIterator');
-		
+		$interface->addParentInterface($parentInterface1);
+		$interface->addParentInterface($parentInterface2);
+
 		$this->assertSame($expected, $interface->getParentInterfaces());
 	}
-	
+
 	/**
 	 * Test if can remove multiple parent interfaces.
 	 */
 	public function testRemoveParentInterface() {
-		
+
+		$parentInterface1 = sha1(microtime(true));
+		$parentInterface2 = sha1(microtime(true));
 		$interface = new PHPInterface('Test');
-		$interface->addParentInterface('Countable');
-		$interface->addParentInterface('OuterIterator');
-		$interface->removeParentInterface('Countable');
-		$interface->removeParentInterface('OuterIterator');
-		
+		$interface->addParentInterface($parentInterface1);
+		$interface->addParentInterface($parentInterface2);
+		$interface->removeParentInterface($parentInterface1);
+		$interface->removeParentInterface($parentInterface2);
+
 		$this->assertSame(array(), $interface->getParentInterfaces());
 	}
-	
+
 	/**
-	 * Test if can set or get a DocBlock object.
+	 * Test the `setConstants` and `getConstants` accessors.
+	 */
+	public function testConstantAccessors() {
+
+		$constant = new PHPConstant('TEST', new PHPValue(1));
+		$constants = array(spl_object_hash($constant) => $constant);
+
+		$interface = new PHPInterface('Test');
+		$interface->setConstants($constants);
+
+		$this->assertSame($constants, $interface->getConstants());
+	}
+
+	/**
+	 * Test if can add multiple constants.
+	 */
+	public function testAddConstants() {
+
+		$constant1 = new PHPConstant('TEST1', new PHPValue(1));
+		$constant2 = new PHPConstant('TEST2', new PHPValue(1));
+		$expected = array(
+			spl_object_hash($constant1) => $constant1,
+			spl_object_hash($constant2) => $constant2
+		);
+
+		$interface = new PHPInterface('Test');
+		$interface->addConstant($constant1);
+		$interface->addConstant($constant2);
+
+		$this->assertSame($expected, $interface->getConstants());
+	}
+
+	/**
+	 * Test if can remove multiple constants.
+	 */
+	public function testRemoveConstants() {
+
+		$constant1 = new PHPConstant('TEST1', new PHPValue(1));
+		$constant2 = new PHPConstant('TEST2', new PHPValue(1));
+
+		$interface = new PHPInterface('Test');
+		$interface->addConstant($constant1);
+		$interface->addConstant($constant2);
+		$interface->removeConstant($constant1);
+		$interface->removeConstant($constant2);
+
+		$this->assertSame(array(), $interface->getConstants());
+	}
+
+	/**
+	 * Test the `setMethods` and `getMethods` accessors.
+	 */
+	public function testMethodAccessors() {
+
+		$method = new PHPMethod('test');
+		$methods = array(spl_object_hash($method) => $method);
+
+		$interface = new PHPInterface('Test');
+		$interface->setMethods($methods);
+
+		$this->assertSame($methods, $interface->getMethods());
+	}
+
+	/**
+	 * Test if can add multiple methods.
+	 */
+	public function testAddMethods() {
+
+		$method1 = new PHPMethod('test1');
+		$method2 = new PHPMethod('test2');
+		$expected = array(
+			spl_object_hash($method1) => $method1,
+			spl_object_hash($method2) => $method2
+		);
+
+		$interface = new PHPInterface('Test');
+		$interface->addMethod($method1);
+		$interface->addMethod($method2);
+
+		$this->assertSame($expected, $interface->getMethods());
+	}
+
+	/**
+	 * Test if can remove multiple methods.
+	 */
+	public function testRemoveMethods() {
+
+		$method1 = new PHPMethod('test1');
+		$method2 = new PHPMethod('test2');
+
+		$interface = new PHPInterface('Test');
+		$interface->addMethod($method1);
+		$interface->addMethod($method2);
+		$interface->removeMethod($method1);
+		$interface->removeMethod($method2);
+
+		$this->assertSame(array(), $interface->getMethods());
+	}
+
+	/**
+	 * Test the `setDocBlock` and `getDocBlock` accessors.
 	 */
 	public function testDocBlockAccessors() {
-		
+
+		$docBlock = new PHPDocBlock;
 		$interface = new PHPInterface('Test');
-		$interface->setDocBlock(new PHPDocBlock());
-		
-		$this->assertInstanceOf('com\mohiva\manitou\generators\php\PHPDocBlock', $interface->getDocBlock());
+		$interface->setDocBlock($docBlock);
+
+		$this->assertSame($docBlock, $interface->getDocBlock());
 	}
-	
+
 	/**
 	 * Test if can generate an interface which extends a parent class.
 	 */
 	public function testGenerateInterfaceWhichExtendsParents() {
-		
+
 		$file = Bootstrap::$resourceDir . '/manitou/generators/php/interface_extends.txt';
 		$expected = $this->getFileContent($file);
-		
+
 		$interface = new PHPInterface('Test', array('Serializable', 'Countable'));
-		
+
 		$this->assertEquals($expected, $interface->generate());
 	}
-	
+
 	/**
 	 * Test if can generate an interface with a DocBlock.
 	 */
 	public function testGenerateInterfaceWithDocBlock() {
-		
+
 		$file = Bootstrap::$resourceDir . '/manitou/generators/php/interface_docblock.txt';
 		$expected = $this->getFileContent($file);
-		
+
 		$interface = new PHPInterface('Test');
 		$interface->setDocBlock(new PHPDocBlock());
-		
+
 		$this->assertEquals($expected, $interface->generate());
 	}
-	
+
 	/**
 	 * Test if can generate an interface with constants.
 	 */
 	public function testGenerateInterfaceWithConstants() {
-		
+
 		$file = Bootstrap::$resourceDir . '/manitou/generators/php/interface_constants.txt';
 		$expected = $this->getFileContent($file);
-		
+
 		$interface = new PHPInterface('Test');
 		$interface->addConstant(new PHPConstant('VISIBILITY_PUBLIC', new PHPValue(1)));
 		$interface->addConstant(new PHPConstant('VISIBILITY_PROTECTED', new PHPValue(2)));
 		$interface->addConstant(new PHPConstant('VISIBILITY_PRIVATE', new PHPValue(3)));
-		
+
 		$this->assertEquals($expected, $interface->generate());
 	}
-	
+
 	/**
 	 * Test if can generate an interface with methods.
 	 */
 	public function testGenerateInterfaceWithMethods() {
-		
+
 		$file = Bootstrap::$resourceDir . '/manitou/generators/php/interface_methods.txt';
 		$expected = $this->getFileContent($file);
-		
+
 		$interface = new PHPInterface('Test');
 		$interface->addMethod(new PHPMethod('__construct', PHPMember::VISIBILITY_PUBLIC, PHPMethod::SCOPE_INTERFACE));
 		$interface->addMethod(new PHPMethod('calculate', PHPMember::VISIBILITY_PROTECTED, PHPMethod::SCOPE_INTERFACE));
 		$interface->addMethod(new PHPMethod('draw', PHPMember::VISIBILITY_PRIVATE, PHPMethod::SCOPE_INTERFACE));
-		
+
 		$this->assertEquals($expected, $interface->generate());
 	}
-	
+
 	/**
 	 * Test if can generate a complex interface.
 	 */
 	public function testGenerateComplexInterface() {
-		
+
 		$file = Bootstrap::$resourceDir . '/manitou/generators/php/interface_complex.txt';
 		$expected = $this->getFileContent($file);
-		
-		$this->assertEquals($expected, PHPInterface::create('Test')
+
+		$this->assertEquals($expected, (new PHPInterface('Test'))
 			->setParentInterfaces(array('Serializable', 'Countable'))
-			->setDocBlock(PHPDocBlock::create()->addSection('A complex interface example.'))
-			->addConstant(PHPConstant::create('TYPE_HTTP', new PHPValue(1))->setDocBlock(new PHPDocBlock()))
-			->addConstant(PHPConstant::create('TYPE_CLI', new PHPValue(2))->setDocBlock(new PHPDocBlock()))
-			->addMethod(PHPMethod::create('__construct')
+			->setDocBlock((new PHPDocBlock())->addSection('A complex interface example.'))
+			->addConstant((new PHPConstant('TYPE_HTTP', new PHPValue(1)))->setDocBlock(new PHPDocBlock()))
+			->addConstant((new PHPConstant('TYPE_CLI', new PHPValue(2)))->setDocBlock(new PHPDocBlock()))
+			->addMethod((new PHPMethod('__construct'))
 				->setScope(PHPMethod::SCOPE_INTERFACE)
 				->addParameter(new PHPParameter('type'))
-				->setDocBlock(PHPDocBlock::create()->addSection('The class constructor.')))
+				->setDocBlock((new PHPDocBlock())->addSection('The class constructor.')))
 			->generate()
 		);
 	}

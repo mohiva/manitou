@@ -1,6 +1,6 @@
 /**
  * Short comment.
- * 
+ *
  * Lorem ipsum ad qui diam putant corpora, rebum primis id vim. Admodum
  * fuisset mei et. Per ne molestiae posidonium. Nec ad natum homero delectus.
  * Qui eu facilis lobortis, nam rebum utroque vocibus at.
