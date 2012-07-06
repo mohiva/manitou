@@ -11,7 +11,7 @@ You can install the library through "composer":http://getcomposer.org. All you n
 <pre lang="js">
 {
     "require": {
-        "mohiva/pyramid": "dev-master"
+        "mohiva/manitou": "dev-master"
     }
 }
 </pre>
